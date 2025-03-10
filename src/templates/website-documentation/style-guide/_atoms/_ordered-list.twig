@@ -1,23 +1,12 @@
 {#
 	Atom: Ordered List
 	========================================
-	* list: ARRAY - An array of strings to list | Default: []
 	* attributes: OBJECT - Custom attributes to be added to the component | Default: null
-	* debug: BOOLEAN - Whether or not the component's debug mode should be enabled | Default: false
 #}
-
-{# Set the component's debug mode state #}
-{% set debug = debug ?? blueprint.config.debug ?? false %}
-
-{# Set the component's default properties #}
-{% set list = list | default(debug ? blueprint.config.placeholders.list : []) %}
 
 {# Set the component's default attributes #}
 {% set defaultAttributes = {
-	list: {
-		class: ['list']
-	},
-	item: {}
+	class: ["list"]
 } %}
 
 {# Merge the custom attributes with the default attributes #}
@@ -27,10 +16,19 @@
 {% endif %}
 
 {# Render the component's HTML #}
-{% if list is not empty %}
-	<ol {{ attr(defaultAttributes.list) }}>
-		{% for item in list %}
-			<li {{ attr(defaultAttributes.item) }}>{{- item -}}</li>
-		{% endfor %}
-	</ol>
-{% endif %}
+<ol {{ attr(defaultAttributes) }}>
+	<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+		<ul>
+			<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+				<ul>
+					<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+	<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+		<ul>
+			<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
+		</ul>
+	</li>
+</ol>

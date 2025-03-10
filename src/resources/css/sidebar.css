@@ -1,11 +1,9 @@
-html {
-  font-size: 16px;
-}
-
-body[data-location] {
+body[data-location="style-guide"],
+body[data-location="cms-guide"] {
   font-family: "Helvetica", "sans-serif";
   font-size: 1.125rem;
   margin: 0;
+  color: #000;
 }
 
 #a11y-button {
@@ -150,9 +148,7 @@ body[data-location] {
     left: 0;
     overflow-y: scroll;
     padding-bottom: 3rem;
-    transition:
-      margin 0.2s ease-in-out,
-      left 0.2s ease-in-out;
+    transition: margin 0.2s ease-in-out, left 0.2s ease-in-out;
     -ms-overflow-style: none;
     scrollbar-width: none;
 
@@ -168,6 +164,7 @@ body[data-location] {
 
     > button {
       border: 0;
+      font-weight: 400;
       background: transparent;
       appearance: none;
       cursor: pointer;

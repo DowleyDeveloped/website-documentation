@@ -1,47 +1,34 @@
 {#
-  Fonts
-  ==============================
-  * name: STRING - The font name | Default: null
-  * class: STRING - The color's class | Default: null
-  * classes: ARRAY (optional) - Custom classes
-  * attributes OBJECT (optional) - Custom attributes
+	Atom: Fonts
+	========================================
+	* name:         STRING - The font name | Default: null
+	* attributes:   OBJECT - Custom attributes to be added to the component | Default: null
 #}
 
-{# Set the element's default properties #}
-{% set name = name | default() %}
-{% set class = class | default() %}
-{% set classes = classes | default() %}
-{% set attributes = attributes | default() %}
+{# Set the component's default properties #}
+{% set text = text | default(null) %}
 
-{# Set the element's base classes #}
-{% set elementBaseClasses = [
-	class,
-	'font-block',
-] %}
-
-{# Merge custom classes with the base classes #}
-{% if classes is not empty %}
-	{% set elementBaseClasses = elementBaseClasses | merge(classes) %}
-{% endif %}
-
-{# Set the element's base attributes #}
-{% set elementAttributes = {
-	class: elementBaseClasses
+{# Set the component's default attributes #}
+{% set defaultAttributes = {
+	class: [
+		"font-block",
+	]
 } %}
 
-{# Merge custom attributes with the base attributes #}
-{% if attributes is not empty %}
-	{% set elementAttributes = elementAttributes | merge(attributes) %}
+{# Merge the custom attributes with the default attributes #}
+{% if attributes is defined and attributes is not empty %}
+	{% set defaultAttributes = defaultAttributes | merge(attributes, true) %}
+	{% set attributes = null %}
 {% endif %}
 
-{# Render the HTML #}
+{# Render the component's HTML #}
 {% if name is not empty %}
-	<div {{ attr(elementAttributes) }}>
+	<div {{ attr(defaultAttributes) }}>
 		<p class="font-block__name">
 			{{ name }}
 		</p>
 		<p class="font-block__demo">
-			abcdefghijklmnopqrstuvwxyz<br />
+			abcdefghijk<br />
 			1234567890<br />
 			!@£$%&*?+
 		</p>

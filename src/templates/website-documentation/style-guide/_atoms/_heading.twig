@@ -1,37 +1,31 @@
 {#
-  Heading
-  ==============================
-  * level: NUMBER - The heading element's level | Default: 1
-  * text: STRING - The heading's text | Default: WARNING
-  * classes: ARRAY (optional) - Custom classes
-  * attributes OBJECT (optional) - Custom attributes
+	Atom: Heading
+	========================================
+	* level:        INT - The heading level | Default: 2
+	* text:         STRING - The heading text | Default: null
+	* attributes:   OBJECT - Custom attributes to be added to the component | Default: null
 #}
 
-{# Set the element's default properties #}
-{% set level = level | default(1) %}
-{% set text = text | default('⚠️ Content missing') %}
+{# Set the component's default properties #}
+{% set level = level | default(2) %}
+{% set text = text | default(null) %}
 
-{# Set the element's base classes #}
-{% set elementBaseClasses = [] %}
-
-{# Merge custom classes with the base classes #}
-{% if classes is defined and classes is not empty %}
-	{% set elementBaseClasses = elementBaseClasses | merge(classes) %}
-{% endif %}
-
-{# Set the element's base attributes #}
-{% set elementAttributes = {
-	class: elementBaseClasses
+{# Set the component's default attributes #}
+{% set defaultAttributes = {
+	class: [
+		""
+	]
 } %}
 
-{# Merge custom attributes with the base attributes #}
+{# Merge the custom attributes with the default attributes #}
 {% if attributes is defined and attributes is not empty %}
-	{% set elementAttributes = elementAttributes | merge(attributes) %}
+	{% set defaultAttributes = defaultAttributes | merge(attributes, true) %}
+	{% set attributes = null %}
 {% endif %}
 
-{# Render the HTML #}
+{# Render the component's HTML #}
 {% if level > 0 and level <= 6 %}
-	{{ ("<h#{level} #{attr(elementAttributes)}>#{text}</h#{level}>") | raw }}
+	{{ ("<h#{level} #{attr(defaultAttributes)}>#{text}</h#{level}>") | raw }}
 {% else %}
 	<code>⚠️ Invalid heading level</code>
 {% endif %}

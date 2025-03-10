@@ -1,21 +1,23 @@
 {#
-	Color
-	==============================
+	Atom: Color
+	========================================
 	* name: 		STRING - The colors name | Default: null
 	* hex: 			STRING - The colors hex value | Default: null
-	* attributes: 	OBJECT (optional) - Custom attributes
+	* children:     ARRAY - The shades of the color | Default: null
+	* attributes:   OBJECT - Custom attributes to be added to the component | Default: null
 #}
 
-{# Set the element's default properties #}
+{# Set the component's default properties #}
 {% set name = name | default(null) %}
 {% set hex = hex | default(null) %}
 {% set children = children | default([]) %}
-{% set attributes = attributes | default(null) %}
 
 {# Set the component's default attributes #}
 {% set defaultAttributes = {
 	wrapper: {
-		class: ["color-block"]
+		class: [
+			"color-block"
+		]
 	}
 } %}
 
@@ -38,7 +40,7 @@
 			style="background: {{ hex }}"></div>
 		{% if children is not empty %}
 			{% for child in children %}
-                {% set text = websitedocumentation.getContrastColor(child.hex) %}
+				{% set text = websitedocumentation.getContrastColor(child.hex) %}
 				<div class="color-block__shade rounded-b-[20px] -mt-4 px-6 pt-8 pb-4 flex items-center gap-6 relative"
 					style="background: {{ child.hex }}; color: {{ text }}; z-index: {{ (children | length) - loop.index }}">
 					<p>

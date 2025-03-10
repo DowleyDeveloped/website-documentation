@@ -1,33 +1,29 @@
 {#
-  Paragraph
-  ==============================
-  * text: STRING - The paragraph's text | Default: WARNING
-  * classes: ARRAY (optional) - Custom classes
-  * attributes OBJECT (optional) - Custom attributes
+	Atom: Paragraph
+	========================================
+	* text:         STRING - The text | Default: null
+	* attributes:   OBJECT - Custom attributes to be added to the component | Default: null
 #}
 
-{# Set the element's default properties #}
-{% set text = text | default('⚠️ Content missing') %}
+{# Set the component's default properties #}
+{% set text = text | default(null) %}
 
-{# Set the element's base classes #}
-{% set elementBaseClasses = [] %}
-
-{# Merge custom classes with the base classes #}
-{% if classes is defined and classes is not empty %}
-	{% set elementBaseClasses = elementBaseClasses | merge(classes) %}
-{% endif %}
-
-{# Set the element's base attributes #}
-{% set elementAttributes = {
-	class: elementBaseClasses
+{# Set the component's default attributes #}
+{% set defaultAttributes = {
+	class: [
+		""
+	]
 } %}
 
-{# Merge custom attributes with the base attributes #}
+{# Merge the custom attributes with the default attributes #}
 {% if attributes is defined and attributes is not empty %}
-	{% set elementAttributes = elementAttributes | merge(attributes) %}
+	{% set defaultAttributes = defaultAttributes | merge(attributes, true) %}
+	{% set attributes = null %}
 {% endif %}
 
-{# Render the HTML #}
-<p {{ attr(elementAttributes) }}>
-	{{ text | raw }}
-</p>
+{# Render the component's HTML #}
+{% if text is not empty %}
+	<p {{ attr(defaultAttributes) }}>
+		{{- text | raw -}}
+	</p>
+{% endif %}

@@ -1,11 +1,15 @@
-html {
-  font-size: 16px;
+body[data-location] {
+  padding-bottom: 5rem;
+  padding-top: 0.5rem;
 }
 
-body[data-location] {
+body[data-location="style-guide"],
+body[data-location="cms-guide"] {
   font-family: "Helvetica", "sans-serif";
   font-size: 1.125rem;
   margin: 0;
+  color: #000;
+  padding: 0;
 }
 
 #a11y-button {
@@ -304,11 +308,7 @@ body[data-location] {
   }
 
   #canvas {
-    background-position:
-      -1px -1px,
-      -1px -1px,
-      -1px -1px,
-      -1px -1px;
+    background-position: -1px -1px, -1px -1px, -1px -1px, -1px -1px;
     border: 0;
     box-sizing: content-box;
     height: calc(100% - 5rem);
@@ -316,9 +316,7 @@ body[data-location] {
     transform: translateX(-50%);
     position: absolute;
     top: 5rem;
-    transition:
-      all 0.3s ease 0s,
-      background-position 0s ease 0s,
+    transition: all 0.3s ease 0s, background-position 0s ease 0s,
       visibility 0s ease 0s;
     width: 100%;
     display: none;

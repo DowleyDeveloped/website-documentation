@@ -47,9 +47,11 @@
 
     .color-block__hex {
       text-align: left;
+      font-size: 1rem;
     }
 
     .color-block__main {
+      font-family: "Helvetica", "sans-serif";
       aspect-ratio: 16/7;
       border-top: 1px solid #e8e8e8;
       border-radius: 0 0 20px 20px;
@@ -58,14 +60,19 @@
     }
 
     .color-block__shade {
+      font-family: "Helvetica", "sans-serif";
       font-size: 0.9rem;
       border-radius: 0 0 20px 20px;
       margin-top: -1rem;
-      padding: 1.5rem 1.5rem 0.5rem;
+      padding: 2rem 1.5rem 1rem;
       display: flex;
       align-items: center;
       gap: 1.5rem;
       position: relative;
+
+      p {
+        margin: 0;
+      }
     }
   }
 }
@@ -109,5 +116,24 @@
 
   .font__headings-block {
     margin-bottom: 1.5rem;
+  }
+}
+
+.font-section__blocks {
+  display: grid;
+  gap: 2.5rem;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  width: 100%;
+
+  @media only screen and (min-width: 640px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .font-block {
+    border-radius: 20px;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
+    font-size: 2rem;
+    line-height: 1.2;
+    padding: 2rem;
   }
 }
