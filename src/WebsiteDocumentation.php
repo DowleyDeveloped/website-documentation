@@ -376,6 +376,7 @@ class WebsiteDocumentation extends Plugin
 		$uri = $this->getDocUrl($config, $localeHandle);
 
 		if (
+			!$request->isCpRequest &&
 			!$request->getIsConsoleRequest() &&
 			$request->getSegment(1) === $uri
 		) {
