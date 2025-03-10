@@ -1,0 +1,41 @@
+{#
+	Navigation: Submenu
+	========================================
+	* element: The navigation menu's element | Default: null
+	* menuType: STRING - The menu's type | Default: "default"
+	* submenuTransition: STRING - The submenu's transition type | Default: "slide"
+	* attributes: OBJECT - Custom attributes to be added to the component | Default: null
+#}
+
+{# Get template #}
+{% set template = websitedocumentation.getUrl(currentSite.handle) %}
+
+{# Set the component's default properties #}
+{% set element = element | default(null) %}
+{% set parentId = parentId | default(1) %}
+
+{# Set the component's default attributes #}
+{% set defaultAttributes = {
+	id: 'submenu-' ~ element.id,
+	'data-menu-id': element.id,
+	'data-submenu': '',
+	'aria-hidden': 'true'
+} %}
+
+{# Merge the custom attributes with the default attributes #}
+{% if attributes is defined and attributes is not empty %}
+	{% set defaultAttributes = defaultAttributes | merge(attributes, true) %}
+	{% set attributes = null %}
+{% endif %}
+
+{# Render the component's HTML #}
+{% if element %}
+	<div {{ attr(defaultAttributes) }}>
+		{% for child in element.children.all() %}
+			{% include "#{template}/cms-guide/_navigation/_menu-item" with {
+				item: child,
+				parentId: element.id,
+			} %}
+		{% endfor %}
+	</div>
+{% endif %}

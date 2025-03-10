@@ -1,0 +1,47 @@
+{#
+	Main
+	==============================
+	* classes: ARRAY (optional) - Custom classes
+	* attributes OBJECT (optional) - Custom attributes
+#}
+
+{# Get our entries #}
+{% set entries = websitedocumentation
+	.guides()
+	.all() %}
+
+{# Set the element's base attributes #}
+{% set defaultAttributes = {
+	id: 'main',
+	"data-guide-content": true,
+} %}
+
+{# Merge custom attributes with the base attributes #}
+{% if attributes is defined and attributes is not empty %}
+	{% set defaultAttributes = defaultAttributes | merge(attributes, true) %}
+	{% set attributes = null %}
+{% endif %}
+
+{# Render the HTML #}
+<main {{ attr(defaultAttributes) }}>
+	<div data-container>
+		{% if entries is not empty %}
+			{% for entry in entries %}
+				{% if entry.children is empty %}
+                	{% set field = entry.websiteDocumentationText %}
+
+					{% include global.url ~ '/cms-guide/_organisms/_content' with {
+						section: entry.title,
+						content: field,
+					} %}
+				{% endif %}
+			{% endfor %}
+		{% else %}
+			<p id="no-entries">
+				No entries exist under the {{ section.name }} section. Default entries
+				can be generated via the Website Documentation
+				<a href="{{ settingsUrl }}" target="_blank">plugin settings</a>.
+			</p>
+		{% endif %}
+	</div>
+</main>

@@ -1,0 +1,30 @@
+{#
+	CMS Guide Layout
+	==============================
+	The layout inherited by templates specific to the CMS guide site.
+#}
+
+{# Inherit the blocks and their content from the master layout. #}
+{% extends websitedocumentation.getUrl(currentSite.handle) ~ '/_layouts/_master' %}
+
+{# Import the `config()` and `data()` macros containing JSON-encoded strings.
+These string will need to be transformed into valid JSON objects before they can
+be referenced by all templates inheriting this layout. #}
+{% import websitedocumentation.getUrl(currentSite.handle) ~ '/cms-guide/_config.twig' as config %}
+
+{# Set an object containing data inherited by the CMS guide site ONLY. #}
+{% set cmsGuide = {
+	config: config.config() | spaceless | replace('&quot;', '"') | json_decode,
+} %}
+
+{% block head %}
+	{{ parent() }}
+	{# Head content to be inherited by this layout ONLY. The `parent` function
+	inherits the content from the master layout's head block. #}
+{% endblock %}
+
+{% block body %}
+	{{ parent() }}
+	{# Body content to be inherited by this layout ONLY. The `parent` function
+	inherits the content from the master layout's body block. #}
+{% endblock %}

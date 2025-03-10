@@ -1,0 +1,42 @@
+{#
+	Content
+	==============================
+	* section: 		STRING - The name of the cms guide section | Default: null
+	* content:		STRING - The content for the cms guide section | Default: null
+	* classes: 		ARRAY (optional) - Custom classes
+	* attributes: 	OBJECT (optional) - Custom attributes
+#}
+
+{# Set the element's default properties #}
+{% set section = section | default(null) %}
+{% set content = content | default(null) %}
+
+{# Set the element's base attributes #}
+{% set defaultAttributes = {
+	'data-content': section | kebab,
+	'aria-labelledby': section | kebab,
+	tabindex: '0',
+	role: 'tabpanel'
+} %}
+
+{# Merge custom attributes with the base attributes #}
+{% if attributes is defined and attributes is not empty %}
+	{% set defaultAttributes = defaultAttributes | merge(attributes, true) %}
+	{% set attributes = null %}
+{% endif %}
+
+{# Render the HTML #}
+{% if section and content %}
+	<div {{ attr(defaultAttributes) }}>
+		{% include websitedocumentation.getUrl(currentSite.handle)
+			~ '/cms-guide/_atoms/_heading' with {
+			level: 2,
+			text: section,
+		} %}
+		<div id="guide-content">
+			{{
+				craft.documentSettings.formatContent(content) | raw
+			}}
+		</div>
+	</div>
+{% endif %}

@@ -1,0 +1,23 @@
+{#
+  Website Docs Index
+  ==============================
+	The web server's default page for the website docs index.
+#}
+
+{# Inherit the blocks and their content from the site layout. #}
+{% extends websitedocumentation.getUrl(currentSite.handle) ~ '/_layouts/_dashboard' %}
+
+{% block head %}
+	{{ parent() }}
+	{# Head content to be inherited by this template ONLY. The `parent` function
+	inherits the content from the styleguide layout's head block. #}
+{% endblock %}
+
+{% block body %}
+	{{ parent() }}
+	{# Body content to be inherited by this template ONLY. The `parent` function
+	inherits the content from the styleguide layout's body block. #}
+	{% include global.url ~ '/_organisms/_header' %}
+	{% include global.url ~ '/_organisms/_main' %}
+	{% include global.url ~ '/_organisms/_footer' %}
+{% endblock %}

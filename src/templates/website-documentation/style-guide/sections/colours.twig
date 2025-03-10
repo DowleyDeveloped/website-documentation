@@ -1,0 +1,41 @@
+{#
+	Colors
+	==============================
+	One of the sections displayed in the styleguide.
+#}
+
+{# Inherit the blocks and their content from the styleguide layout. #}
+{% extends websitedocumentation.getUrl(currentSite.handle) ~ '/_layouts/_section.twig' %}
+
+{% block head %}
+	{{ parent() }}
+	{# Head content to be inherited by this template ONLY. The `parent` function
+	inherits the content from the styleguide layout's head block. #}
+{% endblock %}
+
+{% block body %}
+	{# Fetch the relevant styleguide data #}
+	{% set colorArray = styleGuide.data.colors %}
+
+	{# Render the HTML #}
+	<section>
+		{% embed websitedocumentation.getUrl(currentSite.handle) ~ '/style-guide/_embeds/_container'
+			with {
+				contentClasses: ['container-padding']
+			}
+		%}
+			{% block content %}
+				<div id="color-grid" class="mb-20">
+					{% for colors in colorArray %}
+						{# Parent Colour #}
+						{% include global.url ~ '/style-guide/_atoms/_color' with {
+							name: colors[0].name,
+							hex: colors[0].hex,
+							children: colors | slice(1)
+						} %}
+					{% endfor %}
+				</div>
+			{% endblock %}
+		{% endembed %}
+	</section>
+{% endblock %}

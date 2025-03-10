@@ -1,0 +1,22 @@
+{#
+	Icon: Chevron
+	========================================
+	* attributes: OBJECT - Custom attributes to be added to the component | Default: null
+#}
+
+{# Set the component's default attributes #}
+{% set defaultAttributes = {
+	xmlns: 'http://www.w3.org/2000/svg',
+	viewBox: '0 0 90 90',
+} %}
+
+{# Merge custom attributes with the default attributes #}
+{% if attributes is defined and attributes is not empty %}
+	{% set defaultAttributes = defaultAttributes | merge(attributes, true) %}
+	{% set attributes = null %}
+{% endif %}
+
+{# Render the component's HTML #}
+<svg {{ attr(defaultAttributes) }}>
+	<polygon points="49.7,69.7 39.1,69.6 2,30.5 12.7,20.4 44.5,54 77.5,20.3 88,30.6 "></polygon>
+</svg>

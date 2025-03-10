@@ -1,0 +1,22 @@
+{#
+	Style Guide Index
+	==============================
+	The web server's default page for the styleguide site.
+#}
+
+{# Inherit the blocks and their content from the site layout. #}
+{% extends websitedocumentation.getUrl(currentSite.handle) ~ '/_layouts/_style-guide' %}
+
+{% block head %}
+	{{ parent() }}
+	{# Head content to be inherited by this template ONLY. The `parent` function
+	inherits the content from the styleguide layout's head block. #}
+{% endblock %}
+
+{% block body %}
+	{{ parent() }}
+	{# Body content to be inherited by this template ONLY. The `parent` function
+	inherits the content from the styleguide layout's body block. #}
+	{% include global.url ~ '/style-guide/_organisms/_aside' %}
+	{% include global.url ~ '/style-guide/_organisms/_main' %}
+{% endblock %}

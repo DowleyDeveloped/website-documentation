@@ -1,0 +1,72 @@
+{% extends '_layouts/cp' %}
+
+{% set title = 'Website Documentation' %}
+
+{% set sites = craft.app.sites %}
+{% set settings = websitedocumentation.getSettings() %}
+
+{% set blocks = {} %}
+
+{% for site in sites.editableSites %}
+	{% set url = websitedocumentation.getUrl(site.handle) %}
+    {% set styleGuide = settings.sites[site.handle] is defined and settings.sites[site.handle].displayStyleGuide != '1'
+        ? false : true %}
+    {% set cmsGuide = settings.sites[site.handle] is defined and settings.sites[site.handle].displayCmsGuide != '1'
+        ? false : true %}
+
+	{% set blocks =
+		blocks|merge({
+			(site.handle): {
+				title: site.name,
+                display: styleGuide or cmsGuide,
+				guides: {
+					styleguide: {
+						label: 'Style Guide',
+						url: site.baseUrl ~ url ~ '/style-guide',
+						icon: 'book',
+						display: settings.sites[site.handle] is defined
+							and settings.sites[site.handle].displayStyleGuide
+								!= '1'
+							? false
+							: true
+					},
+					guide: {
+						label: 'CMS Guide',
+						url: site.baseUrl ~ url ~ '/cms-guide',
+						icon: 'book',
+						display: settings.sites[site.handle] is defined
+							and settings.sites[site.handle].displayCmsGuide
+								!= '1'
+							? false
+							: true
+					}
+				}
+			}
+		})
+	%}
+{% endfor %}
+
+{% block content %}
+	{% for key, item in blocks %}
+        {% if item.display %}
+		    <ul class="icons">
+			    {% if (blocks|length) > 1 %}
+				    <h2 style="width:100%; margin-left:1.1rem">
+					    {{ item.title }}
+				    </h2>
+			    {% endif %}
+			    {% for key, block in item.guides %}
+				    {% if block.display %}
+					    <li>
+						    <a href="{{ block.url }}"
+							    target="_blank"
+							    data-icon="{{ block.icon }}">
+							    {{ block.label }}
+						    </a>
+					    </li>
+				    {% endif %}
+			    {% endfor %}
+		    </ul>
+        {% endif %}
+	{% endfor %}
+{% endblock %}

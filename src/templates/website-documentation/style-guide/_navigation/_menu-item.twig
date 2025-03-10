@@ -1,0 +1,37 @@
+{#
+	Navigation: Menu Item
+	========================================
+	* item: OBJECT (verbb\navigation\elements\Node) - The menu item | Default: null
+	* currentPage: STRING - The current page's slug | Default: "home"
+	* parentId: NUMBER - The current page's parent page ID | Default: 1
+	* menuType: STRING - The menu's type | Default: "default"
+	* submenuTransition: STRING - The submenu's transition type | Default: "slide"
+#}
+
+{# Get template #}
+{% set template = websitedocumentation.getUrl(currentSite.handle) %}
+
+{# Set the component's default properties #}
+{% set item = item | default(null) %}
+{% set parentId = parentId | default(1) | number %}
+
+{# Set the component's default attributes #}
+{% set defaultAttributes = {
+	class: ["nav-item"],
+} %}
+
+{# Merge the custom attributes with the default attributes #}
+{% if attributes is defined and attributes is not empty %}
+	{% set defaultAttributes = defaultAttributes | merge(attributes, true) %}
+	{% set attributes = null %}
+{% endif %}
+
+{# Render the component's HTML #}
+{% if item and item.enabled %}
+	<div {{ attr(defaultAttributes) }}>
+		{% include "#{template}/style-guide/_navigation/_element" with {
+			element: item,
+			parentId: parentId,
+		} %}
+	</div>
+{% endif %}

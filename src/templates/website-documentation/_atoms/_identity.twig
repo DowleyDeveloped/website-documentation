@@ -1,0 +1,58 @@
+{#
+	Atoms: Identity
+	========================================
+	* tile:        STRING - Component title | Default: null
+	* global:      OBJECT - Global Config | Default: null
+	* attributes:  OBJECT - Custom attributes to be added to the component | Default: null
+#}
+
+{# Set the component's default properties #}
+{% set title = title | default('Guide') %}
+{% set global = global | default(null) %}
+{% set template = websitedocumentation.getUrl(currentSite.handle) %}
+
+{# Set the component's default attributes #}
+{% set defaultAttributes = {
+	wrapper: {
+		id: "header",
+	},
+	logo: {
+		wrapper: {
+			id: "sidebar-logo",
+		},
+		link: {
+			href: "/",
+		}
+	},
+	title: {
+		id: "sidebar-title",
+	}
+} %}
+
+{# Merge the custom attributes with the default attributes #}
+{% if attributes is defined and attributes is not empty %}
+	{% set defaultAttributes = defaultAttributes | merge(attributes, true) %}
+	{% set attributes = null %}
+{% endif %}
+
+{# Render the component's HTML #}
+{% if global is not empty %}
+	<div {{ attr(defaultAttributes.wrapper) }}>
+		<div>
+			{% if global.settings.logo is not empty %}
+				<div {{ attr(defaultAttributes.logo.wrapper) }}>
+					<a {{ attr(defaultAttributes.logo.link) }}>
+						<img src="{{ craft.assets().id(global.settings.logo).one.url }}" alt="Brand Logo"/>
+					</a>
+				</div>
+			{% endif %}
+			<h1 {{ attr(defaultAttributes.title) }}>
+				{{ title }}
+			</h1>
+		</div>
+		<div data-burger>
+			<span></span>
+			<span></span>
+		</div>
+	</div>
+{% endif %}

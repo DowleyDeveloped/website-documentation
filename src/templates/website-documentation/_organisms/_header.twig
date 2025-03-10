@@ -1,0 +1,53 @@
+{#
+	Header
+	==============================
+
+	* title: 		STRING - Title of the page | Default: Documentation
+	* classes: 		ARRAY (optional) - Custom classes
+	* attributes 	OBJECT (optional) - Custom attributes
+#}
+{# Set the element's default properties #}
+{% set title = title | default('Documentation') %}
+
+{# Set the element's base classes #}
+{% set elementBaseClasses = [] %}
+
+{# Merge custom classes with the base classes #}
+{% if classes is defined and classes is not empty %}
+	{% set elementBaseClasses = elementBaseClasses | merge(classes) %}
+{% endif %}
+
+{# Set the element's base attributes #}
+{% set elementAttributes = {
+	id: 'header',
+	class: elementBaseClasses
+} %}
+
+{# Merge custom attributes with the base attributes #}
+{% if attributes is defined and attributes is not empty %}
+	{% set elementAttributes = elementAttributes | merge(attributes) %}
+{% endif %}
+
+{# Get properties from settings #}
+{% set logoID = global.settings.logo | default(null) %}
+
+{# Render the HTML #}
+<header {{ attr(elementAttributes) }}>
+	{% block content %}
+		{% include websitedocumentation.getUrl(currentSite.handle)
+			~ '/_atoms/_back-link' with {
+			global: global,
+		} only %}
+		<div id="index-header">
+			{% if logoID is not empty %}
+				<div id="index-logo">
+					<img src="{{ craft.assets().id(logoID).one.url }}"
+						title="{{ 'Brand Logo' | t }}" />
+				</div>
+			{% endif %}
+			<div id="index-heading">
+				{{ 'Website Documentation' | t }}
+			</div>
+		</div>
+	{% endblock %}
+</header>

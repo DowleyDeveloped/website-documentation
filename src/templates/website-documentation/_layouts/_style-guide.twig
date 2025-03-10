@@ -1,0 +1,32 @@
+{#
+	Style Guide Layout
+	==============================
+	The layout inherited by templates specific to the style guide site.
+#}
+
+{# Inherit the blocks and their content from the master layout. #}
+{% extends websitedocumentation.getUrl(currentSite.handle) ~ '/_layouts/_master' %}
+
+{# Import the `config()` and `data()` macros containing JSON-encoded strings.
+These string will need to be transformed into valid JSON objects before they can
+be referenced by all templates inheriting this layout. #}
+{% import websitedocumentation.getUrl(currentSite.handle) ~ '/style-guide/_config' as config %}
+{% import websitedocumentation.getUrl(currentSite.handle) ~ '/style-guide/_data' as data %}
+
+{# Set an object containing data inherited by the style guide site ONLY. #}
+{% set styleGuide = {
+	config: config.config() | spaceless | replace('&quot;', '"') | json_decode,
+	data: data.data() | spaceless | replace('&quot;', '"') | json_decode,
+} %}
+
+{% block head %}
+	{{ parent() }}
+	{# Head content to be inherited by this layout ONLY. The `parent` function
+	inherits the content from the master layout's head block. #}
+{% endblock %}
+
+{% block body %}
+	{{ parent() }}
+	{# Body content to be inherited by this layout ONLY. The `parent` function
+	inherits the content from the master layout's body block. #}
+{% endblock %}

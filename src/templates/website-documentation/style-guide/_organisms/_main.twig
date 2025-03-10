@@ -1,0 +1,86 @@
+{#
+	Main
+	==============================
+	* attributes OBJECT (optional) - Custom attributes
+#}
+
+{# Get our sections #}
+{% set navigation = websitedocumentation
+	.navigation()
+	.siteId(currentSite.id)
+	.handle('styleGuide')
+	.all() %}
+
+{# Set the element's base attributes #}
+{% set defaultAttributes = {
+	id: 'style-main',
+} %}
+
+{# Merge custom attributes with the base attributes #}
+{% if attributes is defined and attributes is not empty %}
+	{% set defaultAttributes = defaultAttributes | merge(attributes, true) %}
+	{% set attributes = null %}
+{% endif %}
+
+{# Create sections from menu #}
+{% set sections = [] %}
+{% for section in navigation %}
+	{% if section.children is empty %}
+		{% set uri = section.title | kebab %}
+		{% set id = uri %}
+		{% set template = uri %}
+		{% set ancestors = websitedocumentation.navElements()
+			.ancestorOf(section)
+			.collect()
+			.pluck("title")
+			.toArray() %}
+
+		{% if ancestors %}
+			{% set ancestorUri = [] %}
+			{% set lastAncestor = ancestors | last %}
+
+			{% for ancestor in ancestors %}
+				{% set ancestorUri = ancestorUri | merge([ancestor | kebab]) %}
+			{% endfor %}
+
+			{% set template = "#{ancestorUri | join('/')}/#{uri}" %}
+			{% set id = "#{lastAncestor | kebab}-#{uri}" %}
+		{% endif %}
+
+		{% set sectionObject = {
+			id: id,
+			title: section.title,
+			template: template
+		} %}
+
+		{% set sections = sections | merge([sectionObject]) %}
+	{% endif %}
+{% endfor %}
+
+{# Render the HTML #}
+<main {{ attr(defaultAttributes) }}>
+	<div data-container>
+		{% include global.url ~ '/style-guide/_organisms/_toolbar' %}
+		{% set containers = [] %}
+
+		{# Create the Containers #}
+		{% for section in sections %}
+			{% set template = global.url ~ '/style-guide/sections/' ~ (section.template) %}
+			{% set title = section.title %}
+			{% set id = section.id %}
+
+			{% if
+				include(
+					template,
+					ignore_missing = true
+				) is not empty %}
+				{% include global.url
+					~ '/style-guide/_organisms/_content' with {
+					id: id,
+					title: title,
+					template: template
+				} %}
+			{% endif %}
+		{% endfor %}
+	</div>
+</main>

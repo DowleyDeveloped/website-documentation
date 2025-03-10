@@ -1,0 +1,25 @@
+{#
+  Global Layout
+  ==============================
+	Contains data and variables to be inherited by all layouts and templates.
+#}
+
+{# Set an object containing data inherited by all layouts and templates. #}
+{% set handle = currentSite.handle %}
+
+{% set global = {
+	settings: websitedocumentation.getSettings(handle),
+	url: websitedocumentation.getUrl(handle),
+	logo: websitedocumentation.getSettings(handle).logo | default(null),
+	colors: {
+		brandBackground: websitedocumentation.getSettings(handle).brandBgColor | default('fff'),
+		brandText: websitedocumentation.getSettings(handle).brandTextColor | default('000'),
+		accentBackground: websitedocumentation.getSettings(handle).accentBgColor | default('000'),
+		accentText: websitedocumentation.getSettings(handle).accentTextColor | default('fff')
+	},
+} %}
+
+{# All HTML output to be rendered. Should generally be left blank. #}
+{% block html %}
+
+{% endblock %}

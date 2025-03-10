@@ -1,0 +1,85 @@
+{% extends 'websitedocumentation/_layouts/settings' %}
+
+{% import '_includes/forms' as forms %}
+
+{% set title = 'General Settings' | t('websitedocumentation') %}
+
+{% set tabs = {
+  branding: {
+    label: 'Branding' | t('websitedocumentation'),
+    url: '#branding',
+  },
+  settings: {
+    label: 'Settings' | t('websitedocumentation'),
+    url: '#settings',
+  },
+} %}
+
+{% block content %}
+	<input type="hidden" name="action" value="websitedocumentation/settings/save-general-settings">
+	{{ redirectInput('websitedocumentation/settings') }}
+	{{ csrfInput() }}
+	{{ hiddenInput('siteHandle', currentSite) }}
+	<div id="branding">
+        {{ forms.elementSelectField({
+            id: 'logo',
+            name: 'logo',
+            label: 'Logo',
+            instructions: 'Add client logo, to display in the sidebar for the guides.'|t('website-documentation'),
+            value: logo ? [logo] : null,
+            errors: null,
+            elements: logo ? [logo] : null,
+            elementType: 'craft\\elements\\Asset',
+            single: true,
+            viewMode: 'large',
+            criteria: {
+                kind: 'image',
+                filename: '*.svg',
+            },
+        }) }}
+
+		{{ forms.colorField({
+    		label: "Brand Background Color",
+    		id: "brandBgColor",
+    		name: "brandBgColor",
+			value: settings.sites[currentSite].brandBgColor | default,
+		}) }}
+
+		{{ forms.colorField({
+    		label: "Brand Text Color",
+    		id: "brandTextColor",
+    		name: "brandTextColor",
+			value: settings.sites[currentSite].brandTextColor | default,
+		}) }}
+
+		{{ forms.colorField({
+    		label: "Accent Background Color",
+    		id: "accentBgColor",
+    		name: "accentBgColor",
+			value: settings.sites[currentSite].accentBgColor | default,
+		}) }}
+
+		{{ forms.colorField({
+    		label: "Active Text Color",
+    		id: "accentTextColor",
+    		name: "accentTextColor",
+			value: settings.sites[currentSite].accentTextColor | default,
+		}) }}
+	</div>
+	<div id="settings" class="hidden">
+		{{ forms.lightswitchField({
+    		label: "Display Style Guide",
+			name: "displayStyleGuide",
+			onLabel: 'Enable' | t('websitedocumentation'),
+			offLabel: 'Disable' | t('websitedocumentation'),
+			on: (settings.sites[currentSite].displayStyleGuide is defined) ? settings.sites[currentSite].displayStyleGuide : 1
+		}) }}
+		{{ forms.lightswitchField({
+    		label: "Display CMS Guide",
+			name: "displayCmsGuide",
+			onLabel: 'Enable' | t('websitedocumentation'),
+			offLabel: 'Disable' | t('websitedocumentation'),
+			on: (settings.sites[currentSite].displayCmsGuide is defined) ? settings.sites[currentSite].displayCmsGuide : 1
+		}) }}
+	</div>
+{% endblock %}

@@ -1,0 +1,52 @@
+{#
+	Color
+	==============================
+	* name: 		STRING - The colors name | Default: null
+	* hex: 			STRING - The colors hex value | Default: null
+	* attributes: 	OBJECT (optional) - Custom attributes
+#}
+
+{# Set the element's default properties #}
+{% set name = name | default(null) %}
+{% set hex = hex | default(null) %}
+{% set children = children | default([]) %}
+{% set attributes = attributes | default(null) %}
+
+{# Set the component's default attributes #}
+{% set defaultAttributes = {
+	wrapper: {
+		class: ["color-block"]
+	}
+} %}
+
+{# Merge the custom attributes with the default attributes #}
+{% if attributes is defined and attributes is not empty %}
+	{% set defaultAttributes = defaultAttributes | merge(attributes, true) %}
+	{% set attributes = null %}
+{% endif %}
+
+{# Render the HTML #}
+{% if hex is not empty %}
+	<div {{ attr(defaultAttributes.wrapper) }}>
+		<div class="color-block__content">
+			<p class="color-block__heading">
+				{{ name }}
+			</p>
+			<code class="color-block__hex">{{ hex }}</code>
+		</div>
+		<div class="color-block__main aspect-[16/7] border-t border-[#e8e8e8] rounded-b-[20px] relative z-10"
+			style="background: {{ hex }}"></div>
+		{% if children is not empty %}
+			{% for child in children %}
+                {% set text = websitedocumentation.getContrastColor(child.hex) %}
+				<div class="color-block__shade rounded-b-[20px] -mt-4 px-6 pt-8 pb-4 flex items-center gap-6 relative"
+					style="background: {{ child.hex }}; color: {{ text }}; z-index: {{ (children | length) - loop.index }}">
+					<p>
+						{{ child.name }}
+					</p>
+					<code class="">{{ child.hex }}</code>
+				</div>
+			{% endfor %}
+		{% endif %}
+	</div>
+{% endif %}

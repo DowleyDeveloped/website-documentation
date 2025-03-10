@@ -1,0 +1,29 @@
+{#
+  Master Layout
+  ==============================
+	The layout inherited by all layouts and templates across the project.
+#}
+
+{# Inherit the blocks and their content from the globals file. #}
+{% extends websitedocumentation.getUrl(currentSite.handle) ~ '/_layouts/_global' %}
+
+{# Get Location #}
+{% set guideLocation = craft.app.request.getSegment(-1) %}
+
+{# The basic essentials of all webpages served across the project. #}
+{% block html %}
+	<!DOCTYPE html>
+	<html lang="{{ currentSite.language }}" dir="ltr">
+		<head>
+			{% block head %}
+				{% include websitedocumentation.getUrl(currentSite.handle) ~ '/_partials/_head-meta' %}
+			{% endblock %}
+		</head>
+
+		<body id="body" data-location="{{ guideLocation }}">
+			{% block body %}
+				{# Body content to be inherited by ALL layouts and templates. #}
+			{% endblock %}
+		</body>
+	</html>
+{% endblock %}

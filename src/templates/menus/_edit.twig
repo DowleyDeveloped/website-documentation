@@ -1,0 +1,197 @@
+{% set bodyClass = 'body-documentation-elements-index' %}
+
+{% extends 'websitedocumentation/_layouts/menus' %}
+{% import '_includes/forms' as forms %}
+
+{% set crumbs = [
+	{ label: 'Documentation' | t('websitedocumentation'), url: url('website-documentation') },
+	{ label: 'Documentation Menus' | t('websitedocumentation'), url: url('website-documentation/menus') },
+] %}
+
+{% if craft.app.getIsMultiSite() and requestedSite %}
+	{% set crumbs = crumbs | unshift({
+		id: 'site-crumb',
+		icon: 'world',
+		label: requestedSite.name | t('site'),
+		menu: {
+			items: siteMenuItems(null, requestedSite),
+			label: 'Select site' | t('site')
+		},
+	}) %}
+{% endif %}
+
+{% set menuTitle = menu.name %}
+{% set elementType = 'fortytwostudio\\websitedocumentation\\elements\\NavElement' %}
+{% set elementInstance = craft.app.elements.createElement(elementType) %}
+{% set sources = craft.app.elementSources.getSources(elementType, 'index', true) %}
+
+{# Enforce a single source #}
+{% set sources = sources | filter(n => n.key == 'menu:' ~ menu.uid) %}
+
+{% block pageTitle %}
+	<h1 class="screen-title" title="{{ menuTitle }}">{{ menuTitle }}</h1>
+
+	<div id="toolbar" class="flex flex-nowrap">
+		{% include '_elements/toolbar' with {
+			showSiteMenu: false,
+		} %}
+	</div>
+
+	<div id="actions-container" class="flex"></div>
+{% endblock %}
+
+{% block details %}
+
+<div class="nav-sidebar documentation-menu-sidebar">
+	<nav id="accordion" data-vui-tabs>
+		<ul class="tab-list">
+			{% for tabId, tab in websitedocumentation.getElementTabs(menu) %}
+				{% set selected = loop.first %}
+
+				{% set attributes = {
+					class: 'tab-list-item',
+					'data-id': tabId,
+				} %}
+
+				<li {{ attr(attributes) }}>
+					<a id="tab-{{ tabId }}" class="tab{% if selected %} sel{% endif %}" href="#pane-{{ tabId }}" data-href="#pane-{{ tabId }}" title="{{ tab.label }}">
+						{{ tab.label }}
+					</a>
+
+					<div id="pane-{{ tabId }}" class="tab-list-pane {% if not selected %}hidden{% endif %}">
+						<form class="form-type-{{ tab.category }}" method="post" accept-charset="UTF-8">
+							{% if tab.category == 'element' %}
+								{{ forms.selectField({
+									label: 'Parent' | t('navigation'),
+									instructions: 'Select a navigation item as the parent.' | t('navigation'),
+									id: 'parentId',
+									name: 'parentId',
+									options: parentOptions,
+									class: 'fullwidth dropdown-parent-element',
+								}) }}
+
+								{{ forms.lightswitchField({
+									label: 'Open in new window' | t('navigation'),
+									instructions: 'Whether to open this navigation item in a new window.' | t('navigation'),
+									id: 'newWindow',
+									name: 'newWindow',
+									on: false,
+								}) }}
+
+								{{ hiddenInput('type', tab.type) }}
+
+								<div class="buttons">
+									{% set attributes = {
+										type: 'submit',
+										class: 'btn submit add icon js-btn-element-add',
+										'data-element-type': tab.type,
+										'data-sources': tab.sources,
+									} %}
+
+									<button {{ attr(attributes) }}>{{ tab.button }}</button>
+									<div class="loading hidden"></div>
+								</div>
+							{% elseif tab.category == 'elementType' %}
+								{{ forms.selectField({
+									label: 'Parent' | t('navigation'),
+									instructions: 'Select a navigation item as the parent.' | t('navigation'),
+									id: 'parentId',
+									name: 'parentId',
+									options: parentOptions,
+									class: 'fullwidth dropdown-parent-element',
+								}) }}
+
+								{% if tab.nodeType.hasNewWindow() %}
+									{{ forms.lightswitchField({
+										label: 'Open in new window' | t('navigation'),
+										instructions: 'Whether to open this navigation item in a new window.' | t('navigation'),
+										id: 'newWindow',
+										name: 'newWindow',
+										on: false,
+									}) }}
+								{% endif %}
+
+								{% if tab.nodeType.hasTitle() %}
+									{{ forms.textField({
+										label: 'Title' | t('navigation'),
+										id: 'title',
+										name: 'title',
+										first: true,
+										required: true,
+										instructions: 'Name of this node in the navigation.' | t('navigation'),
+									}) }}
+								{% endif %}
+
+								{% if tab.nodeType.hasUrl() %}
+									{{ forms.textField({
+										label: 'URL' | t('navigation'),
+										id: 'url',
+										name: 'url',
+										instructions: 'The URL of this node.' | t('navigation'),
+									}) }}
+								{% endif %}
+
+								<div class="node-type-data">
+									{% namespace 'data' %}
+										{{ tab.nodeType.getSettingsHtml() | raw }}
+									{% endnamespace %}
+								</div>
+
+								{{ hiddenInput('type', tab.type) }}
+
+								<div class="buttons">
+									<button type="submit" class="btn submit add icon">{{ tab.button }}</button>
+									<div class="loading hidden"></div>
+								</div>
+							{% endif %}
+						</form>
+					</div>
+				</li>
+			{% endfor %}
+		</ul>
+	</nav>
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div id="documentation-elements-index">
+	<div id="sidebar-container" class="hidden">
+		<div id="sidebar" class="sidebar">
+			<nav aria-label="{{ 'Sources'|t('app') }}">
+				{% include "_elements/sources" %}
+			</nav>
+		</div>
+	</div>
+
+	<div class="main element-index">
+		<div class="elements busy">
+			<div class="update-loading loading loading-absolute"></div>
+		</div>
+	</div>
+</div>
+
+{% js %}
+	Craft.elementIndex = Craft.createElementIndex('{{ elementType|e("js") }}', $('.body-documentation-elements-index #main-container'), {
+		menuId: {{ menu.id }},
+		elementTypeName: '{{ elementInstance.displayName() | e("js") }}',
+		elementTypePluralName: '{{ elementInstance.pluralDisplayName() | e("js") }}',
+		context: 'index',
+		storageKey: 'elementindex.{{ elementType | e("js") }}',
+		criteria: Craft.defaultIndexCriteria,
+		toolbarSelector: '#toolbar',
+		canHaveDrafts: false,
+		hideSidebar: true,
+	});
+{% endjs %}
+
+{% css %}
+
+#page-title {
+	display: flex;
+}
+
+{% endcss %}
+
+{% endblock %}

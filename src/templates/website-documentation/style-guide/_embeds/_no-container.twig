@@ -1,0 +1,70 @@
+{#
+	No Container
+	=======================================
+	* headerClasses: 	ARRAY | Default: null
+	* contentClasses: 	ARRAY | Default: null
+	* headerAttributes: OBJECT | Default: null
+	* contentAttributes: OBJECT | Default: null
+#}
+
+{# Set Default Values #}
+{% set header = block('header') ?? null %}
+{% set content = block('content') ?? null %}
+{% set headerClasses = headerClasses | default() %}
+{% set contentClasses = contentClasses | default()%}
+{% set headerAttributes = headerAttributes | default() %}
+{% set contentAttributes = contentAttributes | default()%}
+
+{% if header | spaceless is not empty %}
+	{# Set the element's base classes #}
+	{% set headerBaseClasses = [] %}
+
+	{# Merge header classes with the base classes #}
+	{% if headerClasses is not empty %}
+		{% set headerBaseClasses = headerBaseClasses | merge(headerClasses) %}
+	{% endif %}
+
+	{# Set the element's base attributes #}
+	{% set headerBaseAttributes = {
+		class: headerBaseClasses
+	} %}
+
+	{# Merge custom attributes with the base attributes #}
+	{% if headerAttributes is not empty %}
+		{% set headerBaseAttributes = headerBaseAttributes | merge(headerAttributes) %}
+	{% endif %}
+
+	<div {{ attr(headerBaseAttributes) }}>
+		<div class="container">
+			{% block header %}
+
+			{% endblock %}
+		</div>
+	</div>
+{% endif %}
+
+{% if content | spaceless is not empty %}
+		{# Set the element's base classes #}
+	{% set contentBaseClasses = [] %}
+
+	{# Merge header classes with the base classes #}
+	{% if contentClasses is not empty %}
+		{% set contentBaseClasses = contentBaseClasses | merge(contentClasses) %}
+	{% endif %}
+
+	{# Set the element's base attributes #}
+	{% set contentBaseAttributes = {
+		class: contentBaseClasses
+	} %}
+
+	{# Merge custom attributes with the base attributes #}
+	{% if contentAttributes is not empty %}
+		{% set contentBaseAttributes = contentBaseAttributes | merge(contentAttributes) %}
+	{% endif %}
+
+	<div {{ attr(contentBaseAttributes) }}>
+		{% block content %}
+
+		{% endblock %}
+	</div>
+{% endif %}

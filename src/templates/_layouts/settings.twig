@@ -1,0 +1,57 @@
+{% extends "_layouts/cp" %}
+
+{% set selectedSubnavItem = 'settings' %}
+
+{% set title = 'Settings' %}
+
+{% set navItems = {
+	general: {
+		title: 'General Settings',
+	},
+	templates: {
+		title: 'Install Templates',
+	}
+} %}
+
+{% set extraSegment = craft.app.request.getSegment(4) | default %}
+{% set appendix = extraSegment ? '/'~extraSegment : '' %}
+{% set selectedItem = (craft.app.request.getSegment(3) ~ appendix)|default %}
+
+{% set crumbs = [
+    { label: "Documentation"|t("websitedocumentation"), url: url("website-documentation") },
+    { label: "Settings"|t("websitedocumentation"), url: url("website-documentation/settings") },
+] %}
+
+{% if craft.app.getIsMultiSite() and requestedSite %}
+    {% set crumbs = crumbs | unshift({
+        id: 'site-crumb',
+        icon: 'world',
+        label: requestedSite.name | t('site'),
+        menu: {
+            items: siteMenuItems(null, requestedSite),
+            label: 'Select site' | t('site')
+        },
+    }) %}
+{% endif %}
+
+{% block actionButton %}
+    <div class="buttons">
+        <div class="btngroup submit">
+            <input type="submit" class="btn submit" value="{{ 'Save' | t('websitedocumentation') }}">
+        </div>
+    </div>
+{% endblock %}
+
+{% block sidebar %}
+    <nav>
+        <ul>
+            {% for id, item in navItems %}
+                <li>
+                    <a href="{{ url('website-documentation/settings/' ~ id) }}"{% if id == selectedItem %} class="sel"{% endif %}>
+                        {{ item.title | raw }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+{% endblock %}

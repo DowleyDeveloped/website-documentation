@@ -1,0 +1,45 @@
+{#
+	Navigation: Menu
+	========================================
+	* id: 			STRING - Should match the aria-controls attribute on the menu button | Default: 'sidebar-menu'
+	* entries: 		ARRAY - The menu | Default: null
+	* attributes: 	OBJECT - Custom attributes to be added to the component | Default: null
+#}
+
+{# Set the component's default properties #}
+{% set id = id | default('main-menu') %}
+{% set entries = entries | default(null) %}
+{% set global = global | default(null) %}
+
+{# Get template #}
+{% set template = websitedocumentation.getUrl(currentSite.handle) %}
+
+{# Get Colours #}
+{% set textColour = global.colors.brandText | default("fff") %}
+{% set activeBackground = global.colors.accentBackground | default("000000")%}
+{% set subActiveBackground = "#{activeBackground}60" | default("00000060") %}
+{% set childActiveBackground = "#{activeBackground}30" | default("00000030") %}
+
+{# Set the component's default attributes #}
+{% set defaultAttributes = {
+	nav: {
+		id: id,
+		style: [
+			"--activeText: ##{textColour}",
+			"--activeBg: ##{activeBackground}",
+			"--subActivebg: ##{subActiveBackground}",
+			"--childActivebg: ##{childActiveBackground}"
+		] | join("; ")
+	}
+} %}
+
+{# Render the component's HTML #}
+{% if entries is not empty %}
+	<nav {{ attr(defaultAttributes.nav) }}>
+		{% for item in entries %}
+			{% include "#{template}/cms-guide/_navigation/_menu-item" with {
+				item: item,
+			} %}
+		{% endfor %}
+	</nav>
+{% endif %}

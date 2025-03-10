@@ -1,0 +1,86 @@
+{#
+	Main
+	==============================
+	* attributes:  OBJECT - Custom attributes to be added to the component | Default: null
+#}
+
+{# Get properties from settings #}
+{% set brandBackground =  global.settings.brandBgColor | default('D7D7D7') %}
+{% set brandText =  global.settings.brandTextColor | default('000') %}
+
+{# Set the component's default attributes #}
+{% set defaultAttributes = {
+	wrapper: {
+		id: "main",
+		class: [
+			"index-main",
+		]
+	},
+	block: {
+		wrapper: {
+			class: [
+				"index-main__block"
+			]
+		},
+		icon: {
+			class: [
+				"index-main__icon",
+			],
+			style: "background: ##{brandBackground}; color: ##{brandText}",
+		},
+		title: {
+			class: [
+				"index-main__title",
+			]
+		}
+	}
+} %}
+
+{# Merge custom attributes with the base attributes #}
+{% if attributes is defined and attributes is not empty %}
+	{% set elementAttributes = elementAttributes | merge(attributes) %}
+{% endif %}
+
+{% set indexBlocks = [
+	{
+		url: '/' ~ websitedocumentation.getUrl(currentSite.handle) ~ '/style-guide',
+		icon: websitedocumentation.getUrl(currentSite.handle) ~ '/_atoms/_icons/_style-guide',
+		title: 'Style Guide' | t,
+		display: global.settings.displayStyleGuide == '1' ? true : false,
+	},
+	{
+		url: '/' ~ websitedocumentation.getUrl(currentSite.handle) ~ '/cms-guide',
+		icon: websitedocumentation.getUrl(currentSite.handle) ~ '/_atoms/_icons/_cms-guide',
+		title: 'CMS Guide' | t,
+		display: global.settings.displayCmsGuide == '1' ? true : false,
+	}
+] %}
+
+{# Render the HTML #}
+<main {{ attr(defaultAttributes.wrapper) }}>
+	{% for block in indexBlocks %}
+		{% if block.display %}
+			<div {{ attr(defaultAttributes.block.wrapper) }}>
+				<a href="{{ block.url }}">
+					<div {{ attr(defaultAttributes.block.icon) }}>
+						{% set icon = block.icon %}
+						{% if include(icon, ignore_missing = true) is not empty %}
+							<span class="icon">
+								{% include icon with {
+									attributes: {
+										style: 'fill: #' ~ brandText
+									}
+								} only %}
+							</span>
+						{% endif %}
+					</div>
+					<div {{ attr(defaultAttributes.block.title) }}>
+						<h2>
+							{{ block.title }}
+						</h2>
+					</div>
+				</a>
+			</div>
+		{% endif %}
+	{% endfor %}
+</main>

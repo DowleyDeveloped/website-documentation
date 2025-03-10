@@ -1,0 +1,66 @@
+{#
+	Aside - Style Guide
+	========================================
+	* attributes:  OBJECT - Custom attributes to be added to the component | Default: null
+#}
+
+{# Inherit the blocks and their content from the site layout. #}
+{% set title = "Style Guide" %}
+{% extends websitedocumentation.getUrl(currentSite.handle) ~ '/_organisms/_aside' %}
+
+{# Get template #}
+{% set template = websitedocumentation.getUrl(currentSite.handle) %}
+
+{# Get our navigation #}
+{% set navigation = websitedocumentation
+	.navigation()
+	.handle('styleGuide')
+	.siteId(currentSite.id)
+	.level(1)
+	.all() %}
+
+{# Get Colours #}
+{% set textColour = global.colors.brandText %}
+{% set activeBackground = global.colors.accentBackground %}
+{% set subActiveBackground = "#{activeBackground}80" %}
+{% set childActiveBackground = "#{activeBackground}40" %}
+
+{# Set the component's default attributes #}
+{% set contentAttributes = {
+	wrapper: {
+		id: "sidebar-menu",
+
+	},
+	item: {
+		wrapper: {
+			class: [
+				"nav-item"
+			]
+		},
+		title: {
+			class: [
+				"nav-item__title",
+			],
+			"data-parent": true,
+		},
+		icon: {
+			class: [
+				"nav-item__icon",
+			]
+		},
+		chevron: {
+			class: [
+				"nav-item__chevron",
+			]
+		},
+	}
+} %}
+
+{% block content %}
+	{% if navigation %}
+		{% include "#{template}/style-guide/_navigation/_menu" with {
+			id: "sidebar-menu",
+			menu: navigation,
+		} %}
+	{% endif %}
+{% endblock %}

@@ -40,8 +40,8 @@ Within General Settings you can add a logo, and choose colours which will be dis
 
 ## Adding new sections to the styleguide
 
-If you're using the demo templates, you can add a new section by opening up the **\_config.twig** file and adding new items to the Object. Each item can have a Sub menu as well.
+You can create the style guide menu within the Documentation menu section. This will then look inside the website-documentation folder in your templates folder for the correct file.
 
-The naming of these items are used in kebab case for the file in the sections folder. For example if you call a section **Heroes** you'll name your file **heroes.twig**.
+The naming of these items are used in kebab case for the file in the sections folder. For example if you call a section **Featured Hero** you'll name your file **featured-hero.twig**.
 
 Brought to you by [Forty Two](https://fortytwo.studio)

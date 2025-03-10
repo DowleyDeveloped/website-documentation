@@ -1,0 +1,40 @@
+{#
+	Aside - Container
+	========================================
+	* attributes:  OBJECT - Custom attributes to be added to the component | Default: null
+#}
+
+{% set title = title | default(null) %}
+{% set templateUrl = websitedocumentation.getUrl(currentSite.handle) %}
+
+{# Set the component's default attributes #}
+{% set defaultAttributes = {
+	wrapper: {
+		id: "aside",
+	},
+} %}
+
+{# Merge the custom attributes with the default attributes #}
+{% if attributes is defined and attributes is not empty %}
+	{% set defaultAttributes = defaultAttributes | merge(attributes, true) %}
+	{% set attributes = null %}
+{% endif %}
+
+{# Render the HTML #}
+<aside {{ attr(defaultAttributes.wrapper) }}>
+	{# Meta #}
+	{% include websitedocumentation.getUrl(currentSite.handle) ~ '/_atoms/_back-link' with {
+		global: global,
+		url: "/#{templateUrl}",
+		text: 'Back to index',
+	} only %}
+	{% include websitedocumentation.getUrl(currentSite.handle) ~ '/_atoms/_identity' with {
+		title: title,
+		global: global
+	} only %}
+	<div id="sidebar-content">
+		{% block content %}
+			SIDEBAR CONTENT
+		{% endblock %}
+	</div>
+</aside>

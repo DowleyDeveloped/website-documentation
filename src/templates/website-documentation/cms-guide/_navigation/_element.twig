@@ -1,0 +1,80 @@
+{#
+	Navigation: Element
+	========================================
+	* element: OBJECT - The navigation menu's element | Default: null
+	* menuType: STRING - The menu's type | Default: "default"
+	* menuTransition: STRING - The menu's transition type | Default: "slide"
+	* attributes: OBJECT - Custom attributes to be added to the component | Default: null
+#}
+
+{# Get template #}
+{% set template = websitedocumentation.getUrl(currentSite.handle) %}
+
+{# Set the component's default properties #}
+{% set element = element | default(null) %}
+{% set parentId = parentId | default(1) %}
+{% set menuType = menuType | default('default') %}
+{% set submenuTransition = submenuTransition | default('slide') %}
+{% set currentPage = craft.app.request.segments | last | default('home') %}
+
+{# Set the component's default attributes #}
+{% set defaultAttributes = {
+	wrapper: {
+		class: [
+			"nav-element"
+		],
+		"data-section": element.title | kebab
+	},
+	icon: {
+		class: [
+			"nav-item__icon",
+		]
+	},
+	chevron: {
+		class: [
+			"nav-item__chevron",
+		]
+	}
+} %}
+
+{# Merge the custom attributes with the default attributes #}
+{% if attributes is defined and attributes is not empty %}
+	{% set defaultAttributes = defaultAttributes | merge(attributes, true) %}
+	{% set attributes = null %}
+{% endif %}
+
+{# If the element has descendants, add the relevant attributes #}
+{% if element.hasDescendants %}
+	{% set defaultAttributes =
+		defaultAttributes | merge({
+			wrapper: {
+				'aria-expanded': 'false',
+				'aria-controls': 'submenu-' ~ element.id
+			}
+		}, true)
+	%}
+{% endif %}
+
+{# Render the component's HTML #}
+<button {{ attr(defaultAttributes.wrapper) }}>
+	<span {{ attr(defaultAttributes.icon) }}>
+		{% include template ~ '/_atoms/_icons/_arrow' only %}
+	</span>
+
+	{{ element.title }}
+
+	{% if element.hasDescendants %}
+		<span {{ attr(defaultAttributes.chevron) }}>
+			{% include "#{template}/_atoms/_icons/_chevron" only %}
+		</span>
+	{% endif %}
+</button>
+
+{% if element.hasDescendants %}
+	{% include "#{template}/cms-guide/_navigation/_submenu" with {
+		element: element,
+		parentId: parentId,
+		menuType: menuType,
+		submenuTransition: submenuTransition
+	} %}
+{% endif %}

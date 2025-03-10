@@ -1,0 +1,20 @@
+{#
+	Website Documentation Dashboard
+	==============================
+	The layout inherited by templates specific to the Website Documentation dashboard.
+#}
+
+{# Inherit the blocks and their content from the master layout. #}
+{% extends websitedocumentation.getUrl(currentSite.handle) ~ '/_layouts/_master' %}
+
+{% block head %}
+	{{ parent() }}
+	{# Head content to be inherited by this layout ONLY. The `parent` function
+	inherits the content from the master layout's head block. #}
+{% endblock %}
+
+{% block body %}
+	{{ parent() }}
+	{# Body content to be inherited by this layout ONLY. The `parent` function
+	inherits the content from the master layout's body block. #}
+{% endblock %}

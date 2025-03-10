@@ -1,0 +1,34 @@
+{#
+  CMS Guide Index
+  ==============================
+	The web server's default page for the CMS guide site.
+#}
+
+{# Inherit the blocks and their content from the site layout. #}
+{% extends websitedocumentation.getUrl(currentSite.handle) ~ '/_layouts/_cms-guide' %}
+
+{% block head %}
+	{{ parent() }}
+	{# Head content to be inherited by this template ONLY. The `parent` function
+	inherits the content from the styleguide layout's head block. #}
+{% endblock %}
+
+{% block body %}
+	{{ parent() }}
+	{# Body content to be inherited by this template ONLY. The `parent` function
+	inherits the content from the styleguide layout's body block. #}
+	{% set isPluginEnabled = cmsGuide.config.websitedocumention.isEnabled | default(false) %}
+    {% set settingsUrl = cmsGuide.config.websitedocumention.settingsUrl %}
+	{% set section = cmsGuide.config.websitedocumention.section %}
+
+	{% if isPluginEnabled %}
+		{% include global.url ~ '/cms-guide/_organisms/_aside' %}
+		{% include global.url ~ '/cms-guide/_organisms/_main' %}
+	{% else %}
+		<div id="content-wrapper">
+			<p>
+				The Website Documentation plugin is currently not enabled! This template will not work until this plugin is enabled.
+			</p>
+		</div>
+	{% endif %}
+{% endblock %}

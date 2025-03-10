@@ -1,0 +1,72 @@
+{% extends 'websitedocumentation/_layouts/menus' %}
+{% import '_includes/forms' as forms %}
+
+{% do view.registerAssetBundle('craft\\web\\assets\\admintable\\AdminTableAsset') -%}
+
+{% set crumbs = [
+	{ label: 'Documentation' | t('websitedocumentation'), url: url('website-documentation') },
+	{ label: 'Documentation Menus' | t('websitedocumentation'), url: url('website-documentation/menus') },
+] %}
+
+{% if craft.app.getIsMultiSite() and requestedSite %}
+	{% set crumbs = crumbs | unshift({
+		id: 'site-crumb',
+		icon: 'world',
+		label: requestedSite.name | t('site'),
+		menu: {
+			items: siteMenuItems(null, requestedSite),
+			label: 'Select site' | t('site')
+		},
+	}) %}
+{% endif %}
+
+{% block blockContent %}
+	<div id="documentation-menu-admin-table"></div>
+{% endblock %}
+
+{% set tableData = [] %}
+
+{% set canReorder = currentUser.can('navigation-createNavs') ? true : false %}
+
+{% for navigation in navigations %}
+	{% set canDelete = currentUser.can('navigation-deleteNav:' ~ navigation.uid) ? true : false %}
+
+	{% set tableData = tableData | merge([{
+		id: navigation.id,
+		title: navigation.name | t('site'),
+		url: url('website-documentation/menus/edit/' ~ navigation.id),
+		name: navigation.name | t('site') | e,
+		handle: navigation.handle,
+	}]) %}
+{% endfor %}
+
+{% js %}
+	var columns = [
+		{ name: '__slot:title', title: Craft.t('app', 'Name') },
+		{ name: '__slot:handle', title: Craft.t('app', 'Handle') },
+	];
+
+	new Craft.VueAdminTable({
+		columns: columns,
+		container: '#documentation-menu-admin-table',
+		emptyMessage: Craft.t('websitedocumentation', 'No menus exist yet.'),
+		tableData: {{ tableData | json_encode | raw }},
+	});
+
+	// When changing the site select, navigate to the navigation index for that site.
+	var $siteMenuBtn = $('#header .sitemenubtn:first');
+
+	if (this.$siteMenuBtn.length) {
+		var siteMenu = $siteMenuBtn.menubtn().data('menubtn').menu;
+
+		siteMenu.on('optionselect', function(ev) {
+			siteMenu.$options.removeClass('sel');
+			var $option = $(ev.selectedOption).addClass('sel');
+			$siteMenuBtn.html($option.html());
+			Craft.cp.setSiteId($option.data('site-id'));
+
+			location.reload();
+		});
+	}
+
+{% endjs %}
