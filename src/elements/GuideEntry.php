@@ -479,6 +479,19 @@ class GuideEntry extends Element
 			],
 		];
 
+		$newElement = $this->createAnother();
+		if ($newElement && $elementsService->canSave($newElement)) {
+			$altActions[] = [
+				'label' => $isUnpublishedDraft && $canSaveCanonical
+					? Craft::t('app', 'Create and add another')
+					: Craft::t('app', 'Save and add another'),
+				'shortcut' => true,
+				'shift' => true,
+				'eventData' => ['autosave' => false],
+				'params' => ['addAnother' => 1],
+			];
+		}
+
 		// Fire a 'defineAltActions' event
 		if ($this->hasEventHandlers(self::EVENT_DEFINE_ALT_ACTIONS)) {
 			$event = new DefineAltActionsEvent([
@@ -498,6 +511,35 @@ class GuideEntry extends Element
 		return $siteIds;
 	}
 
+	/**
+	 * @inheritdoc
+	 */
+	public function createAnother(): ?self
+	{
+		/** @var self $entry */
+		$entry = Craft::createObject([
+			'class' => self::class,
+			'structureId' => $this->structureId,
+			'parentId' => $this->parentId,
+			'typeId' => $this->typeId,
+			'siteId' => $this->siteId,
+		]);
+
+		$enabled = true;
+
+		if (Craft::$app->getIsMultiSite() && count($entry->getSupportedSites()) > 1) {
+			$entry->enabled = true;
+			$entry->setEnabledForSite($enabled);
+		} else {
+			$entry->enabled = $enabled;
+			$entry->setEnabledForSite(true);
+		}
+
+		// Parent
+		$entry->setParentId($this->getParentId());
+
+		return $entry;
+	}
 
 	// Private
 	// =========================================================================
