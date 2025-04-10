@@ -345,7 +345,7 @@ class GuideEntry extends Element
 		if (!$structureElement) {
 			$structuresService = Craft::$app->getStructures();
 			$mode = $isNew ? Structures::MODE_INSERT : Structures::MODE_AUTO;
-			$structuresService->prependToRoot($this->structureId, $this, $mode);
+			$structuresService->appendToRoot($this->structureId, $this, $mode);
 		}
 
 		parent::afterSave($isNew);
@@ -539,9 +539,9 @@ class GuideEntry extends Element
 		$mode = $isNew ? Structures::MODE_INSERT : Structures::MODE_AUTO;
 
 		if (!$parentId) {
-			$structuresService->prependToRoot($structureId, $this, $mode);
+			$structuresService->appendToRoot($structureId, $this, $mode);
 		} else {
-			$structuresService->prepend($structureId, $this, $this->getParent(), $mode);
+			$structuresService->append($structureId, $this, $this->getParent(), $mode);
 		};
 	}
 
