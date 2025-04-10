@@ -120,7 +120,7 @@ class GuideEntry extends Element
 	 */
 	public static function hasDrafts(): bool
 	{
-		return true;
+		return false;
 	}
 
 	/**
@@ -414,7 +414,7 @@ class GuideEntry extends Element
 	 */
 	public function canCreateDrafts(User $user): bool
 	{
-		return true;
+		return false;
 	}
 
 	/**
