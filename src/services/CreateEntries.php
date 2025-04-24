@@ -30,7 +30,7 @@ class CreateEntries extends Component
 		$structure = $settings->structure;
 
 		// Get all Default Entries we want to add to the structure
-		$entries = array_reverse(DefaultEntries::entries());
+		$entries = DefaultEntries::entries();
 
 		// Loop through the sites and add entries is they don't exist
 		foreach ($editableSites as $siteId)
