@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.4.0 - 2025-07-03
+
+- Added the ability to hide the Entries & Menus on different environments based on config
+
 ## 1.3.0 - 2025-04-10
 
 - Add ability to save & add another to guide entries

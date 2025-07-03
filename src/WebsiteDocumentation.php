@@ -173,16 +173,26 @@ class WebsiteDocumentation extends Plugin
 					"url" => $url . $docUrl . "/cms-guide",
 					"external" => true,
 				],
-				"guide-menus" => [
-					"label" => "Guide Menus",
-					"url" => "website-documentation/menus" . $siteHandle,
-				],
-				"guide-entries" => [
-					"label" => "CMS Guide Entries",
-					"url" => "website-documentation/guides" . $siteHandle,
-				],
 			],
 		]);
+
+		// Check if Menus are allowed to shown on this environment
+		$displayMenus = isset($config["displayMenus"]) ? $config["displayMenus"] : true;
+		if ($displayMenus) {
+			$item["subnav"]["guide-menus"] = [
+				"label" => "Guide Menus",
+				"url" => "website-documentation/menus" . $siteHandle,
+			];
+		}
+
+		// Check if Entries are allowed to be shown on this environment
+		$displayEntries = isset($config["displayEntries"]) ? $config["displayEntries"] : true;
+		if ($displayEntries) {
+			$item["subnav"]["guide-entries"] = [
+				"label" => "CMS Guide Entries",
+				"url" => "website-documentation/guides" . $siteHandle,
+			];
+		}
 
 		// If changes are allowed, we can show the settings. These will be saved in the project config
 		$editableSettings = true;
