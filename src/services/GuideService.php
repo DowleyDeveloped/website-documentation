@@ -138,15 +138,10 @@ class GuideService extends Component
 						$parentFolderPath = $folderPath;
 					}
 
-					Craft::info($parentFolderPath, "website-documentation");
-
 					// Step Four. Add new file inside Folder
 					if ($parentFolderPath) {
 						$fileName = StringHelper::toKebabCase($data["title"]);
 						$filePath = "$parentFolderPath/$fileName.twig";
-
-
-						Craft::info($fileName, "website-documentation");
 
 						if (!file_exists($filePath) && file_exists($exampleFile)) {
 							$content = file_get_contents($exampleFile);
