@@ -62,10 +62,8 @@ Craft.Documentation.ElementIndex = Craft.BaseElementIndex.extend({
 
 				if (form.classList.contains("form-type-element")) {
 					self.showElementModal.bind(self, event)();
-					console.log("Form Type Element");
 				} else {
 					self.onElementInstantSubmit.bind(self, event)();
-					console.log("Element Submits");
 				}
 			});
 		});
@@ -215,8 +213,6 @@ Craft.Documentation.ElementIndex = Craft.BaseElementIndex.extend({
 			menuId: this.menuId,
 			siteId: this.siteId,
 		};
-
-		console.log(data);
 
 		Craft.sendActionRequest("POST", "websitedocumentation/elements/get-parent-options", {
 			data,

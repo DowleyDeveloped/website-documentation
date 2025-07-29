@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.5.0 - 2025-07-29
+
+- Added in the automatic file/folder creation based on Style Guide Navigations.
+
 ## 1.4.0 - 2025-07-03
 
 - Added the ability to hide the Entries & Menus on different environments based on config

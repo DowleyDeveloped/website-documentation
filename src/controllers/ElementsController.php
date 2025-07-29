@@ -34,6 +34,9 @@ class ElementsController extends Controller
 					return $this->asModelFailure($element, Craft::t('websitedocumentation', 'Couldn’t add Element.'), 'element');
 				}
 
+				// Create new file for this if the website-documentaion folder has been installed
+				WebsiteDocumentation::$plugin->guideService->createStyleGuideFile($data);
+
 			}
 		}
 

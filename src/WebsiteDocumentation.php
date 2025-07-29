@@ -28,6 +28,8 @@ use craft\services\Dashboard;
 use craft\events\ElementEvent;
 use craft\elements\Entry;
 
+use yii\base\Event;
+
 use fortytwostudio\websitedocumentation\assetbundles\DocumentationAsset;
 use fortytwostudio\websitedocumentation\assetbundles\GuideEditAsset;
 use fortytwostudio\websitedocumentation\models\Settings;
@@ -46,7 +48,10 @@ use fortytwostudio\websitedocumentation\services\GuideService;
 use fortytwostudio\websitedocumentation\services\Menus;
 use fortytwostudio\websitedocumentation\services\ReturnSettings;
 
-use yii\base\Event;
+/* Logging */
+use craft\log\MonologTarget;
+use Monolog\Formatter\LineFormatter;
+use Psr\Log\LogLevel;
 
 /**
  * @author    fortytwostudio
@@ -105,6 +110,9 @@ class WebsiteDocumentation extends Plugin
 
 		// Register Twig Extensions
 		$this->_registerTwigExtensions();
+
+		// Register Logger
+		$this->_registerLogger();
 
 		// Register Asset Bundles
 		$this->_registerAssetBundles();
@@ -507,5 +515,24 @@ class WebsiteDocumentation extends Plugin
     {
         Craft::$app->view->registerTwigExtension(new DocumentationTwigExtension());
     }
+
+	/**
+	 * Registers logger.
+	 */
+	private function _registerLogger(): void
+	{
+		Craft::getLogger()->dispatcher->targets[] = new MonologTarget([
+			"name" => "website-documentation",
+			"categories" => ["website-documentation"],
+			"level" => LogLevel::INFO,
+			"logContext" => false,
+			"allowLineBreaks" => false,
+			"formatter" => new LineFormatter(
+				format: "%datetime% %message%\n",
+				dateFormat: "Y-m-d H:i:s",
+				allowInlineLineBreaks: true
+			),
+		]);
+	}
 
 }

@@ -1,0 +1,20 @@
+{#
+	Example
+	==============================
+	One of the sections displayed in the styleguide.
+#}
+
+{# Inherit the blocks and their content from the styleguide layout. #}
+{% extends websitedocumentation.getUrl(currentSite.handle) ~ '/_layouts/_style-guide.twig' %}
+
+{% block body %}
+	{# Render the HTML #}
+	<section>
+		{% embed websitedocumentation.getUrl(currentSite.handle) ~ '/style-guide/_embeds/_no-container'
+		%}
+			{% block content %}
+				{# Add in component #}
+			{% endblock %}
+		{% endembed %}
+	</section>
+{% endblock %}
