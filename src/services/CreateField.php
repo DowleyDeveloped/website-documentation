@@ -1,5 +1,5 @@
 <?php
-namespace fortytwostudio\websitedocumentation\services;
+namespace dowleydeveloped\websitedocumentation\services;
 
 use yii\base\Component;
 

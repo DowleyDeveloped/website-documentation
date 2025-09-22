@@ -1,5 +1,5 @@
 <?php
-namespace fortytwostudio\websitedocumentation\assetbundles;
+namespace dowleydeveloped\websitedocumentation\assetbundles;
 
 use Craft;
 use craft\web\AssetBundle;
@@ -12,7 +12,7 @@ class DocumentationAsset extends AssetBundle
 
     public function init()
     {
-        $this->sourcePath = "@fortytwostudio/websitedocumentation/resources";
+        $this->sourcePath = "@dowleydeveloped/websitedocumentation/resources";
 
 		$this->css = [
             'css/index.css',

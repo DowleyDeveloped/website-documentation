@@ -1,9 +1,9 @@
 <?php
-namespace fortytwostudio\websitedocumentation\models;
+namespace dowleydeveloped\websitedocumentation\models;
 
-use fortytwostudio\websitedocumentation\WebsiteDocumentation;
-use fortytwostudio\websitedocumentation\elements\NavElement;
-use fortytwostudio\websitedocumentation\records\Nav as NavRecord;
+use dowleydeveloped\websitedocumentation\WebsiteDocumentation;
+use dowleydeveloped\websitedocumentation\elements\NavElement;
+use dowleydeveloped\websitedocumentation\records\Nav as NavRecord;
 
 use Craft;
 use craft\base\Model;

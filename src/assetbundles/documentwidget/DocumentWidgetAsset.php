@@ -1,5 +1,5 @@
 <?php
-namespace fortytwostudio\websitedocumentation\assetbundles\documentwidget;
+namespace dowleydeveloped\websitedocumentation\assetbundles\documentwidget;
 
 use Craft;
 use craft\web\AssetBundle;
@@ -17,7 +17,7 @@ class DocumentWidgetAsset extends AssetBundle
     {
         // define the path that your publishable resources live
         $this->sourcePath =
-            "@fortytwostudio/websitedocumentation/assetbundles/documentwidget/dist";
+            "@dowleydeveloped/websitedocumentation/assetbundles/documentwidget/dist";
 
         // define the dependencies
         $this->depends = [CpAsset::class];

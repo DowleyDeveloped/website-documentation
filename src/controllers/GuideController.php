@@ -1,8 +1,8 @@
 <?php
-namespace fortytwostudio\websitedocumentation\controllers;
+namespace dowleydeveloped\websitedocumentation\controllers;
 
-use fortytwostudio\websitedocumentation\WebsiteDocumentation;
-use fortytwostudio\websitedocumentation\elements\GuideEntry;
+use dowleydeveloped\websitedocumentation\WebsiteDocumentation;
+use dowleydeveloped\websitedocumentation\elements\GuideEntry;
 
 use Craft;
 use craft\base\Element;

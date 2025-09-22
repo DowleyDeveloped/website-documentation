@@ -1,5 +1,5 @@
 <?php
-namespace fortytwostudio\websitedocumentation\base;
+namespace dowleydeveloped\websitedocumentation\base;
 
 use craft\base\ComponentInterface;
 

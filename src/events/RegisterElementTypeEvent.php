@@ -1,5 +1,5 @@
 <?php
-namespace fortytwostudio\websitedocumentation\events;
+namespace dowleydeveloped\websitedocumentation\events;
 
 use yii\base\Event;
 

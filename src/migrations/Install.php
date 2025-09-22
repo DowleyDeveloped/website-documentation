@@ -1,7 +1,7 @@
 <?php
-namespace fortytwostudio\websitedocumentation\migrations;
+namespace dowleydeveloped\websitedocumentation\migrations;
 
-use fortytwostudio\websitedocumentation\models\Navigation;
+use dowleydeveloped\websitedocumentation\models\Navigation;
 
 use Craft;
 use craft\db\Migration;

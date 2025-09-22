@@ -1,5 +1,5 @@
 <?php
-namespace fortytwostudio\websitedocumentation\data;
+namespace dowleydeveloped\websitedocumentation\data;
 
 class DefaultEntries
 {

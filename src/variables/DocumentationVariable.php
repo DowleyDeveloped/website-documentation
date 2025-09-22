@@ -1,11 +1,11 @@
 <?php
-namespace fortytwostudio\websitedocumentation\variables;
+namespace dowleydeveloped\websitedocumentation\variables;
 
-use fortytwostudio\websitedocumentation\WebsiteDocumentation;
-use fortytwostudio\websitedocumentation\elements\NavElement;
-use fortytwostudio\websitedocumentation\elements\db\NavElementQuery;
-use fortytwostudio\websitedocumentation\elements\GuideEntry;
-use fortytwostudio\websitedocumentation\elements\db\GuideQuery;
+use dowleydeveloped\websitedocumentation\WebsiteDocumentation;
+use dowleydeveloped\websitedocumentation\elements\NavElement;
+use dowleydeveloped\websitedocumentation\elements\db\NavElementQuery;
+use dowleydeveloped\websitedocumentation\elements\GuideEntry;
+use dowleydeveloped\websitedocumentation\elements\db\GuideQuery;
 
 use Craft;
 use craft\helpers\UrlHelper;

@@ -1,7 +1,7 @@
 <?php
-namespace fortytwostudio\websitedocumentation\controllers;
+namespace dowleydeveloped\websitedocumentation\controllers;
 
-use fortytwostudio\websitedocumentation\WebsiteDocumentation;
+use dowleydeveloped\websitedocumentation\WebsiteDocumentation;
 
 // Craft
 use Craft;
@@ -15,8 +15,8 @@ use craft\web\Controller;
 use Illuminate\Support\Collection;
 
 // Plugin
-use fortytwostudio\websitedocumentation\assetbundles\GuideIndexAsset;
-use fortytwostudio\websitedocumentation\elements\GuideEntry;
+use dowleydeveloped\websitedocumentation\assetbundles\GuideIndexAsset;
+use dowleydeveloped\websitedocumentation\elements\GuideEntry;
 
 // Yii
 use yii\base\InvalidConfigException;

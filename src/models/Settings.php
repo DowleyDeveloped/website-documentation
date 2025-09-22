@@ -1,7 +1,7 @@
 <?php
-namespace fortytwostudio\websitedocumentation\models;
+namespace dowleydeveloped\websitedocumentation\models;
 
-use fortytwostudio\websitedocumentation\WebsiteDocumentation;
+use dowleydeveloped\websitedocumentation\WebsiteDocumentation;
 
 use Craft;
 use craft\base\Model;

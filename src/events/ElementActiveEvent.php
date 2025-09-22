@@ -1,7 +1,7 @@
 <?php
-namespace fortytwostudio\websitedocumentation\events;
+namespace dowleydeveloped\websitedocumentation\events;
 
-use fortytwostudio\websitedocumentation\elements\NavElement;
+use dowleydeveloped\websitedocumentation\elements\NavElement;
 
 use yii\base\Event;
 

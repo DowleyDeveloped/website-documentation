@@ -1,7 +1,7 @@
 <?php
-namespace fortytwostudio\websitedocumentation\controllers;
+namespace dowleydeveloped\websitedocumentation\controllers;
 
-use fortytwostudio\websitedocumentation\WebsiteDocumentation;
+use dowleydeveloped\websitedocumentation\WebsiteDocumentation;
 
 use Craft;
 use craft\web\Controller;

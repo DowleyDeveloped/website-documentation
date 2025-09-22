@@ -1,7 +1,7 @@
 <?php
-namespace fortytwostudio\websitedocumentation\elementtypes;
+namespace dowleydeveloped\websitedocumentation\elementtypes;
 
-use fortytwostudio\websitedocumentation\base\ElementType;
+use dowleydeveloped\websitedocumentation\base\ElementType;
 
 use Craft;
 

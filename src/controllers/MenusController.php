@@ -1,10 +1,10 @@
 <?php
-namespace fortytwostudio\websitedocumentation\controllers;
+namespace dowleydeveloped\websitedocumentation\controllers;
 
-use fortytwostudio\websitedocumentation\WebsiteDocumentation;
-use fortytwostudio\websitedocumentation\elements\NavElement;
-use fortytwostudio\websitedocumentation\models\Navigation;
-use fortytwostudio\websitedocumentation\models\Settings;
+use dowleydeveloped\websitedocumentation\WebsiteDocumentation;
+use dowleydeveloped\websitedocumentation\elements\NavElement;
+use dowleydeveloped\websitedocumentation\models\Navigation;
+use dowleydeveloped\websitedocumentation\models\Settings;
 
 use Craft;
 use craft\base\ElementInterface;

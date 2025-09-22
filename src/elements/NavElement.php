@@ -1,14 +1,14 @@
 <?php
-namespace fortytwostudio\websitedocumentation\elements;
+namespace dowleydeveloped\websitedocumentation\elements;
 
-use fortytwostudio\websitedocumentation\WebsiteDocumentation;
-use fortytwostudio\websitedocumentation\elements\db\NavElementQuery;
-use fortytwostudio\websitedocumentation\events\ElementActiveEvent;
-use fortytwostudio\websitedocumentation\elementtypes\StyleGuideType;
-use fortytwostudio\websitedocumentation\elementtypes\CustomUrl;
-use fortytwostudio\websitedocumentation\models\Navigation;
+use dowleydeveloped\websitedocumentation\WebsiteDocumentation;
+use dowleydeveloped\websitedocumentation\elements\db\NavElementQuery;
+use dowleydeveloped\websitedocumentation\events\ElementActiveEvent;
+use dowleydeveloped\websitedocumentation\elementtypes\StyleGuideType;
+use dowleydeveloped\websitedocumentation\elementtypes\CustomUrl;
+use dowleydeveloped\websitedocumentation\models\Navigation;
 
-use fortytwostudio\websitedocumentation\records\NavigationElement as ElementRecord;
+use dowleydeveloped\websitedocumentation\records\NavigationElement as ElementRecord;
 
 use Craft;
 use craft\base\Element;

@@ -1,5 +1,5 @@
 <?php
-namespace fortytwostudio\websitedocumentation;
+namespace dowleydeveloped\websitedocumentation;
 
 use Craft;
 use craft\base\Model;
@@ -30,23 +30,23 @@ use craft\elements\Entry;
 
 use yii\base\Event;
 
-use fortytwostudio\websitedocumentation\assetbundles\DocumentationAsset;
-use fortytwostudio\websitedocumentation\assetbundles\GuideEditAsset;
-use fortytwostudio\websitedocumentation\models\Settings;
-use fortytwostudio\websitedocumentation\elements\NavElement;
-use fortytwostudio\websitedocumentation\elements\GuideEntry;
-use fortytwostudio\websitedocumentation\twigextensions\DocumentationTwigExtension;
-use fortytwostudio\websitedocumentation\widgets\DocumentationWidget;
-use fortytwostudio\websitedocumentation\variables\DocumentationVariable;
+use dowleydeveloped\websitedocumentation\assetbundles\DocumentationAsset;
+use dowleydeveloped\websitedocumentation\assetbundles\GuideEditAsset;
+use dowleydeveloped\websitedocumentation\models\Settings;
+use dowleydeveloped\websitedocumentation\elements\NavElement;
+use dowleydeveloped\websitedocumentation\elements\GuideEntry;
+use dowleydeveloped\websitedocumentation\twigextensions\DocumentationTwigExtension;
+use dowleydeveloped\websitedocumentation\widgets\DocumentationWidget;
+use dowleydeveloped\websitedocumentation\variables\DocumentationVariable;
 
-use fortytwostudio\websitedocumentation\services\CreateField;
-use fortytwostudio\websitedocumentation\services\CreateEntryType;
-use fortytwostudio\websitedocumentation\services\CreateEntries;
-use fortytwostudio\websitedocumentation\services\CreateNavElements;
-use fortytwostudio\websitedocumentation\services\ElementTypes;
-use fortytwostudio\websitedocumentation\services\GuideService;
-use fortytwostudio\websitedocumentation\services\Menus;
-use fortytwostudio\websitedocumentation\services\ReturnSettings;
+use dowleydeveloped\websitedocumentation\services\CreateField;
+use dowleydeveloped\websitedocumentation\services\CreateEntryType;
+use dowleydeveloped\websitedocumentation\services\CreateEntries;
+use dowleydeveloped\websitedocumentation\services\CreateNavElements;
+use dowleydeveloped\websitedocumentation\services\ElementTypes;
+use dowleydeveloped\websitedocumentation\services\GuideService;
+use dowleydeveloped\websitedocumentation\services\Menus;
+use dowleydeveloped\websitedocumentation\services\ReturnSettings;
 
 /* Logging */
 use craft\log\MonologTarget;
@@ -54,7 +54,7 @@ use Monolog\Formatter\LineFormatter;
 use Psr\Log\LogLevel;
 
 /**
- * @author    fortytwostudio
+ * @author    dowleydeveloped
  * @package   WebsiteDocumentation
  * @since     1.0.0
  *

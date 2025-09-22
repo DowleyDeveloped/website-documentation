@@ -1,13 +1,13 @@
 {
-    "name": "fortytwo-studio/website-documentation",
+    "name": "dowleydeveloped/website-documentation",
     "description": "Add Guides to your website to help both clients & agency",
     "type": "craft-plugin",
-    "version": "1.5.1",
+    "version": "1.0.0",
     "license": "MIT",
     "authors": [
         {
-            "name": "Forty Two studio",
-            "homepage": "https://fortytwo.studio"
+            "name": "Dowley Developed",
+            "homepage": "https://charlottedowley.co.uk"
         }
     ],
     "require": {
@@ -15,17 +15,17 @@
     },
     "autoload": {
         "psr-4": {
-            "fortytwostudio\\websitedocumentation\\": "src/"
+            "dowleydeveloped\\websitedocumentation\\": "src/"
         }
     },
     "extra": {
         "name": "Website Documentation",
         "handle": "websitedocumentation",
-        "developer": "Forty Two Studio",
-        "developerUrl": "https://fortytwo.studio",
-        "documentationUrl": "https://github.com/fortytwostudio/website-documentation/blob/main/README.md",
-        "changelogUrl": "https://raw.githubusercontent.com/fortytwostudio/website-documentation/main/CHANGELOG.md",
-        "class": "fortytwostudio\\websitedocumentation\\WebsiteDocumentation"
+        "developer": "Dowley Developed",
+        "developerUrl": "https://charlottedowley.co.uk",
+        "documentationUrl": "https://github.com/dowleydeveloped/website-documentation/blob/main/README.md",
+        "changelogUrl": "https://raw.githubusercontent.com/dowleydeveloped/website-documentation/main/CHANGELOG.md",
+        "class": "dowleydeveloped\\websitedocumentation\\WebsiteDocumentation"
     },
     "config": {
         "allow-plugins": {

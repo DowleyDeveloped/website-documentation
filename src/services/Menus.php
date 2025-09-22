@@ -1,5 +1,5 @@
 <?php
-namespace fortytwostudio\websitedocumentation\services;
+namespace dowleydeveloped\websitedocumentation\services;
 
 use Craft;
 use craft\db\Query;
@@ -9,10 +9,10 @@ use craft\models\FieldLayoutTab;
 use craft\models\Site;
 use craft\models\Structure;
 
-use fortytwostudio\websitedocumentation\WebsiteDocumentation;
-use fortytwostudio\websitedocumentation\models\Navigation as NavigationModel;
-use fortytwostudio\websitedocumentation\elements\NavElement;
-use fortytwostudio\websitedocumentation\records\Navigation as NavigationRecord;
+use dowleydeveloped\websitedocumentation\WebsiteDocumentation;
+use dowleydeveloped\websitedocumentation\models\Navigation as NavigationModel;
+use dowleydeveloped\websitedocumentation\elements\NavElement;
+use dowleydeveloped\websitedocumentation\records\Navigation as NavigationRecord;
 
 use yii\base\Component;
 use yii\db\ActiveRecord;

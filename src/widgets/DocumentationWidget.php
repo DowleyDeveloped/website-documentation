@@ -1,8 +1,8 @@
 <?php
-namespace fortytwostudio\websitedocumentation\widgets;
+namespace dowleydeveloped\websitedocumentation\widgets;
 
-use fortytwostudio\websitedocumentation\WebsiteDocumentation;
-use fortytwostudio\websitedocumentation\assetbundles\documentwidget\DocumentWidgetAsset;
+use dowleydeveloped\websitedocumentation\WebsiteDocumentation;
+use dowleydeveloped\websitedocumentation\assetbundles\documentwidget\DocumentWidgetAsset;
 
 use Craft;
 use craft\base\Widget;

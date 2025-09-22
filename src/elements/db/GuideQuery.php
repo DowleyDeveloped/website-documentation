@@ -1,7 +1,7 @@
 <?php
-namespace fortytwostudio\websitedocumentation\elements\db;
+namespace dowleydeveloped\websitedocumentation\elements\db;
 
-use fortytwostudio\websitedocumentation\elements\GuideEntry;
+use dowleydeveloped\websitedocumentation\elements\GuideEntry;
 
 use Craft;
 use craft\db\Table;

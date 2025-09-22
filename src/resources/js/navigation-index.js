@@ -237,6 +237,6 @@ Craft.Documentation.ElementIndex = Craft.BaseElementIndex.extend({
 });
 
 Craft.registerElementIndexClass(
-	"fortytwostudio\\websitedocumentation\\elements\\NavElement",
+	"dowleydeveloped\\websitedocumentation\\elements\\NavElement",
 	Craft.Documentation.ElementIndex,
 );

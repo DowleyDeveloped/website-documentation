@@ -1,7 +1,7 @@
 <?php
-namespace fortytwostudio\websitedocumentation\base;
+namespace dowleydeveloped\websitedocumentation\base;
 
-use fortytwostudio\websitedocumentation\elements\NavElement;
+use dowleydeveloped\websitedocumentation\elements\NavElement;
 
 use Craft;
 use craft\base\Component;

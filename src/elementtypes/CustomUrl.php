@@ -1,7 +1,7 @@
 <?php
-namespace fortytwostudio\websitedocumentation\elementtypes;
+namespace dowleydeveloped\websitedocumentation\elementtypes;
 
-use fortytwostudio\websitedocumentation\base\ElementType;
+use dowleydeveloped\websitedocumentation\base\ElementType;
 
 use Craft;
 use craft\helpers\App;
@@ -13,7 +13,7 @@ class CustomUrl extends ElementType
 
     public static function displayName(): string
     {
-        return Craft::t('navigation', 'Custom URL');
+        return Craft::t('app', 'Custom URL');
     }
 
     public static function hasTitle(): bool

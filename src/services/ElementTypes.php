@@ -1,11 +1,11 @@
 <?php
-namespace fortytwostudio\websitedocumentation\services;
+namespace dowleydeveloped\websitedocumentation\services;
 
-use fortytwostudio\websitedocumentation\base\ElementTypeUi;
-use fortytwostudio\websitedocumentation\events\RegisterElementTypeEvent;
-use fortytwostudio\websitedocumentation\elementtypes\StyleGuideType;
-use fortytwostudio\websitedocumentation\elementtypes\CustomUrl;
-use fortytwostudio\websitedocumentation\elements\NavElement;
+use dowleydeveloped\websitedocumentation\base\ElementTypeUi;
+use dowleydeveloped\websitedocumentation\events\RegisterElementTypeEvent;
+use dowleydeveloped\websitedocumentation\elementtypes\StyleGuideType;
+use dowleydeveloped\websitedocumentation\elementtypes\CustomUrl;
+use dowleydeveloped\websitedocumentation\elements\NavElement;
 
 use Craft;
 use craft\base\Component;

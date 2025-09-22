@@ -1,15 +1,15 @@
 <?php
-namespace fortytwostudio\websitedocumentation\services;
+namespace dowleydeveloped\websitedocumentation\services;
 
 use yii\base\Component;
 
 use Craft;
-use fortytwostudio\websitedocumentation\elements\GuideEntry;
+use dowleydeveloped\websitedocumentation\elements\GuideEntry;
 use craft\helpers\StringHelper;
 use craft\web\View;
 
-use fortytwostudio\websitedocumentation\WebsiteDocumentation;
-use fortytwostudio\websitedocumentation\data\DefaultEntries;
+use dowleydeveloped\websitedocumentation\WebsiteDocumentation;
+use dowleydeveloped\websitedocumentation\data\DefaultEntries;
 
 use Exception;
 

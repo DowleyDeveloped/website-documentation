@@ -1,10 +1,10 @@
 <?php
-namespace fortytwostudio\websitedocumentation\elements;
+namespace dowleydeveloped\websitedocumentation\elements;
 
-use fortytwostudio\websitedocumentation\WebsiteDocumentation;
-use fortytwostudio\websitedocumentation\elements\GuideEntry;
-use fortytwostudio\websitedocumentation\records\GuideEntry as GuideEntryRecord;
-use fortytwostudio\websitedocumentation\elements\db\GuideQuery;
+use dowleydeveloped\websitedocumentation\WebsiteDocumentation;
+use dowleydeveloped\websitedocumentation\elements\GuideEntry;
+use dowleydeveloped\websitedocumentation\records\GuideEntry as GuideEntryRecord;
+use dowleydeveloped\websitedocumentation\elements\db\GuideQuery;
 
 use Craft;
 use craft\base\Element;

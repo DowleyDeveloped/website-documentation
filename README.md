@@ -19,7 +19,7 @@ cd /path/to/project/craft
 2. Then tell Composer to load the plugin:
 
 ```
-composer require fortytwo-studio/website-documentation
+composer require dowleydeveloped/website-documentation
 ```
 
 3. In the Control Panel, go to Settings → Plugins and click the “Install” button for Website Documentation.
@@ -44,4 +44,4 @@ You can create the style guide menu within the Documentation menu section. This 
 
 The naming of these items are used in kebab case for the file in the sections folder. For example if you call a section **Featured Hero** you'll name your file **featured-hero.twig**.
 
-Brought to you by [Forty Two](https://fortytwo.studio)
+Brought to you by [Dowley Developed](https://charlottedowley.co.uk)

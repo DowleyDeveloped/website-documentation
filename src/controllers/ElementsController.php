@@ -1,12 +1,12 @@
 <?php
-namespace fortytwostudio\websitedocumentation\controllers;
+namespace dowleydeveloped\websitedocumentation\controllers;
 
 use Craft;
 use craft\helpers\Json;
 use craft\web\Controller;
 
-use fortytwostudio\websitedocumentation\WebsiteDocumentation;
-use fortytwostudio\websitedocumentation\elements\NavElement;
+use dowleydeveloped\websitedocumentation\WebsiteDocumentation;
+use dowleydeveloped\websitedocumentation\elements\NavElement;
 
 use yii\web\Response;
 

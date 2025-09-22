@@ -53,6 +53,6 @@ Craft.GuideEntries.TemplateIndex = Craft.BaseElementIndex.extend({
 });
 
 Craft.registerElementIndexClass(
-	"fortytwostudio\\websitedocumentation\\elements\\GuideEntry",
+	"dowleydeveloped\\websitedocumentation\\elements\\GuideEntry",
 	Craft.GuideEntries.TemplateIndex,
 );

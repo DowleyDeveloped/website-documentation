@@ -13,6 +13,10 @@ body[data-location="website-documentation"] {
   padding: 0;
 }
 
+body[data-location] #dowleycookieconsent {
+	display:none;
+}
+
 #a11y-button {
   position: absolute;
   left: -200%;

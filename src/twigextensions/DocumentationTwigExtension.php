@@ -1,7 +1,7 @@
 <?php
-namespace fortytwostudio\websitedocumentation\twigextensions;
+namespace dowleydeveloped\websitedocumentation\twigextensions;
 
-use fortytwostudio\websitedocumentation\WebsiteDocumentation;
+use dowleydeveloped\websitedocumentation\WebsiteDocumentation;
 use Twig\Extension\AbstractExtension;
 use Twig\Extension\GlobalsInterface;
 use Twig\TwigFunction;

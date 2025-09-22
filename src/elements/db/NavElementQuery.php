@@ -1,8 +1,8 @@
 <?php
-namespace fortytwostudio\websitedocumentation\elements\db;
+namespace dowleydeveloped\websitedocumentation\elements\db;
 
-use fortytwostudio\websitedocumentation\elements\NavElement;
-use fortytwostudio\websitedocumentation\models\Navigation as NavigationModel;
+use dowleydeveloped\websitedocumentation\elements\NavElement;
+use dowleydeveloped\websitedocumentation\models\Navigation as NavigationModel;
 
 use Craft;
 use craft\db\Query;

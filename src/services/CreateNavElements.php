@@ -1,13 +1,13 @@
 <?php
-namespace fortytwostudio\websitedocumentation\services;
+namespace dowleydeveloped\websitedocumentation\services;
 
 use yii\base\Component;
 
 use Craft;
 
-use fortytwostudio\websitedocumentation\WebsiteDocumentation;
-use fortytwostudio\websitedocumentation\elements\NavElement;
-use fortytwostudio\websitedocumentation\elementtypes\StyleGuideType;
+use dowleydeveloped\websitedocumentation\WebsiteDocumentation;
+use dowleydeveloped\websitedocumentation\elements\NavElement;
+use dowleydeveloped\websitedocumentation\elementtypes\StyleGuideType;
 
 use Exception;
 
