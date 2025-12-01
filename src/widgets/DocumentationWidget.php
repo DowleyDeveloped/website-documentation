@@ -75,9 +75,21 @@ class DocumentationWidget extends Widget
 			$handle = $site->handle;
 			$url = WebsiteDocumentation::getDocUrl($config, $handle);
 
+			if ( !isset($settings->sites[$handle]) ) {
+				$settingsArray = $settings->toArray();
+				$settingsArray['sites'][$handle] = [
+					"displayStyleGuide" => true,
+					"displayCmsGuide" => true,
+				];
+
+				// Save!
+				Craft::$app->getPlugins()->savePluginSettings(WebsiteDocumentation::$plugin, $settingsArray);
+			}
+
 			$styleGuide = boolval(
 				$settings->sites[$handle]["displayStyleGuide"]
 			);
+
 			$cmsGuide = boolval($settings->sites[$handle]["displayCmsGuide"]);
 
 			$item = [

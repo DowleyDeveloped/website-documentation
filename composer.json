@@ -1,36 +1,36 @@
 {
-    "name": "dowleydeveloped/website-documentation",
-    "description": "Add Guides to your website to help both clients & agency",
-    "type": "craft-plugin",
-    "version": "1.2.0",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Dowley Developed",
-            "homepage": "https://charlottedowley.co.uk"
-        }
-    ],
-    "require": {
-        "craftcms/cms": "^5.0.0"
-    },
-    "autoload": {
-        "psr-4": {
-            "dowleydeveloped\\websitedocumentation\\": "src/"
-        }
-    },
-    "extra": {
-        "name": "Website Documentation",
-        "handle": "websitedocumentation",
-        "developer": "Dowley Developed",
-        "developerUrl": "https://charlottedowley.co.uk",
-        "documentationUrl": "https://github.com/dowleydeveloped/website-documentation/blob/main/README.md",
-        "changelogUrl": "https://raw.githubusercontent.com/dowleydeveloped/website-documentation/main/CHANGELOG.md",
-        "class": "dowleydeveloped\\websitedocumentation\\WebsiteDocumentation"
-    },
-    "config": {
-        "allow-plugins": {
-            "yiisoft/yii2-composer": true,
-            "craftcms/plugin-installer": true
-        }
-    }
+	"name": "dowleydeveloped/website-documentation",
+	"description": "Add Guides to your website to help both clients & agency",
+	"type": "craft-plugin",
+	"version": "1.3.0",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Dowley Developed",
+			"homepage": "https://charlottedowley.co.uk"
+		}
+	],
+	"require": {
+		"craftcms/cms": "^5.0.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"dowleydeveloped\\websitedocumentation\\": "src/"
+		}
+	},
+	"extra": {
+		"name": "Website Documentation",
+		"handle": "websitedocumentation",
+		"developer": "Dowley Developed",
+		"developerUrl": "https://charlottedowley.co.uk",
+		"documentationUrl": "https://github.com/dowleydeveloped/website-documentation/blob/main/README.md",
+		"changelogUrl": "https://raw.githubusercontent.com/dowleydeveloped/website-documentation/main/CHANGELOG.md",
+		"class": "dowleydeveloped\\websitedocumentation\\WebsiteDocumentation"
+	},
+	"config": {
+		"allow-plugins": {
+			"yiisoft/yii2-composer": true,
+			"craftcms/plugin-installer": true
+		}
+	}
 }
