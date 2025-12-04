@@ -166,6 +166,10 @@ class NavElementQuery extends ElementQuery
             $this->subQuery->andWhere(Db::parseParam('documentation_navigation_elements.type', $this->type));
         }
 
+		if ($this->siteId) {
+            $this->subQuery->andWhere(Db::parseParam('documentation_navigations.siteId', $this->siteId));
+        }
+
         if ($this->handle) {
             $this->subQuery->andWhere(Db::parseParam('documentation_navigations.handle', $this->handle));
         }
