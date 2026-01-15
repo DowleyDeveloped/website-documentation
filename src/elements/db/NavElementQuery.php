@@ -1,8 +1,8 @@
 <?php
-namespace dowleydeveloped\websitedocumentation\elements\db;
+namespace fortytwostudio\websitedocumentation\elements\db;
 
-use dowleydeveloped\websitedocumentation\elements\NavElement;
-use dowleydeveloped\websitedocumentation\models\Navigation as NavigationModel;
+use fortytwostudio\websitedocumentation\elements\NavElement;
+use fortytwostudio\websitedocumentation\models\Navigation as NavigationModel;
 
 use Craft;
 use craft\db\Query;
@@ -34,7 +34,6 @@ class NavElementQuery extends ElementQuery
         if (!isset($this->withStructure)) {
             $this->withStructure = true;
         }
-
         parent::init();
     }
 
@@ -162,12 +161,19 @@ class NavElementQuery extends ElementQuery
             $this->subQuery->andWhere(Db::parseParam('documentation_navigation_elements.menuId', $this->menuId));
         }
 
-        if ($this->type) {
-            $this->subQuery->andWhere(Db::parseParam('documentation_navigation_elements.type', $this->type));
+		// Site ID
+		if ($this->siteId) {
+			$parentNav = (new Query())
+				->select(['dn.id'])
+				->from(['dn' => '{{%documentation_navigations}}'])
+				->where(Db::parseParam('dn.siteId', $this->siteId))
+				->scalar();
+
+            $this->subQuery->andWhere(Db::parseParam('documentation_navigation_elements.menuId', $parentNav));
         }
 
-		if ($this->siteId) {
-            $this->subQuery->andWhere(Db::parseParam('documentation_navigations.siteId', $this->siteId));
+        if ($this->type) {
+            $this->subQuery->andWhere(Db::parseParam('documentation_navigation_elements.type', $this->type));
         }
 
         if ($this->handle) {
