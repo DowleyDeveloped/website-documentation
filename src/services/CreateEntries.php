@@ -27,7 +27,7 @@ class CreateEntries extends Component
 
 		// Get our structure
 		$settings = WebsiteDocumentation::$plugin->getSettings();
-		$structure = $settings->structure;
+		$structure = $settings->structureUid;
 
 		// Get all Default Entries we want to add to the structure
 		$entries = DefaultEntries::entries();
@@ -55,7 +55,7 @@ class CreateEntries extends Component
 				// Create a new element
 				$entry = new GuideEntry([
 					'siteId' => $siteId, // Ensure it's only being saved for this site
-					'structureId' => $structure,
+					'structureUid' => $structure,
 					'title' => $item['title'],
 					'enabled' => true,
 				]);
