@@ -13,7 +13,7 @@ class CustomUrl extends ElementType
 
     public static function displayName(): string
     {
-        return Craft::t('app', 'Custom URL');
+        return Craft::t('websitedocumentation', 'Custom URL');
     }
 
     public static function hasTitle(): bool

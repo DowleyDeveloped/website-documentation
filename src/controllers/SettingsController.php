@@ -33,109 +33,127 @@ class SettingsController extends Controller
 	 * @throws \yii\web\ForbiddenHttpException
 	 */
 	public function actionPluginSettings(
-		string $siteHandle = null,
-		$settings = null): Response
-    {
+		?string $siteHandle = null,
+		$settings = null,
+	): Response {
 		if ($settings === null) {
 			$settings = WebsiteDocumentation::$settings;
 		}
 
 		if ($siteHandle === null) {
-            $request = Craft::$app->getRequest();
-            $siteParam = $request->getQueryParam('site');
-			$siteHandle = $siteParam ?? Craft::$app->sites->primarySite->handle;
+			$request = Craft::$app->getRequest();
+			$siteParam = $request->getQueryParam('site');
+
+			$siteHandle = $siteParam
+				?? Craft::$app->sites->primarySite->handle;
 		}
 
 		$siteId = $this->getSiteIdFromHandle($siteHandle);
 		$section = Craft::$app->request->getSegment(3);
 
-// 		if ($settings["structure"]) {
-// 			// Check if Structure Exists
-// 			$sectionRequired = Craft::$app->entries->getSectionByHandle(
-// 				StringHelper::toCamelCase($settings["structure"])
-// 			);
-//
-// 			if ($sectionRequired != null) {
-// 				$settings["structureExists"] = true;
-// 			} else {
-// 				$settings["structureExists"] = false;
-// 			}
-// 		} else {
-// 			$settings["structureExists"] = false;
-// 		}
+		// Ensure the sites setting is always an array.
+		$sites = $settings->sites ?? [];
+
+		// Default settings for a site that doesn't have saved settings yet.
+		$siteSettings = array_merge(
+			[
+				'logo' => '',
+				'brandBgColor' => '',
+				'brandTextColor' => '',
+				'accentBgColor' => '',
+				'accentTextColor' => '',
+				'displayStyleGuide' => '1',
+				'displayCmsGuide' => '1',
+			],
+			$sites[$siteHandle] ?? [],
+		);
+
+		// Make the normal settings.sites[currentSite] value safe for
+		// all the existing settings templates.
+		$settings->sites[$siteHandle] = $siteSettings;
 
 		// Basic variables
-		$variables["fullPageForm"] = true;
-		$variables["selectedSubnavItem"] = "settings";
-		$variables["settings"] = $settings;
+		$variables = [];
+		$variables['fullPageForm'] = true;
+		$variables['selectedSubnavItem'] = 'settings';
+		$variables['settings'] = $settings;
+		$variables['controllerHandle'] = 'settings/' . $section;
 
-		$variables["controllerHandle"] = "settings" . "/" . $section;
-		$this->setMultiSiteVariables($siteHandle, $siteId, $variables);
+		$this->setMultiSiteVariables(
+			$siteHandle,
+			$siteId,
+			$variables,
+		);
 
 		// Logo
 		$logo = null;
 
-		if (!empty($settings->sites[$siteHandle]["logo"])) {
-            $logoId = $settings->sites[$siteHandle]["logo"];
-            $logo = Craft::$app->elements->getElementById($logoId);
+		if (!empty($siteSettings['logo'])) {
+			$logo = Craft::$app->elements->getElementById(
+				$siteSettings['logo'],
+			);
 		}
 
-		$variables["logo"] = $logo;
-
-		// Create Variable of current site
-		$variables["currentSite"] = $siteHandle;
+		$variables['logo'] = $logo;
+		$variables['currentSite'] = $siteHandle;
 
 		return $this->renderTemplate(
-			"websitedocumentation/settings/" .
-				($section ? (string) $section : ""),
-			$variables
+			'websitedocumentation/settings/' .
+				($section ? (string) $section : ''),
+			$variables,
 		);
 	}
-
 	/**
-	 * Save General Settings
-	 *
-	 * @return Response The rendered result
-	 * @throws \yii\web\ForbiddenHttpException
-	 */
-	public function actionSaveGeneralSettings()
+	* Save General Settings
+	*
+	* @return Response
+	* @throws \yii\web\BadRequestHttpException
+	* @throws \yii\web\ForbiddenHttpException
+	*/
+	public function actionSaveGeneralSettings(): Response
 	{
 		$this->requirePostRequest();
-		$updates = Craft::$app->getRequest()->getBodyParams();
-		$plugin = Craft::$app->getPlugins()->getPlugin("websitedocumentation");
-		$savedSettings = $plugin->settings->sites;
 
-		unset($savedSettings[$updates["siteHandle"]]);
+		$request = Craft::$app->getRequest();
+		$plugin = Craft::$app->getPlugins()->getPlugin('websitedocumentation');
+		$pluginSettings = $plugin->getSettings();
 
-		$currentSettings = [
-			$updates["siteHandle"] => [
-				"logo" => $updates["logo"],
-				"brandBgColor" => $updates["brandBgColor"],
-				"brandTextColor" => $updates["brandTextColor"],
-				"accentBgColor" => $updates["accentBgColor"],
-				"accentTextColor" => $updates["accentTextColor"],
-				"displayStyleGuide" => $updates["displayStyleGuide"],
-				"displayCmsGuide" => $updates["displayCmsGuide"],
-			],
+		$siteHandle = $request->getRequiredBodyParam('siteHandle');
+		$sites = $pluginSettings->sites ?? [];
+
+		$sites[$siteHandle] = [
+			'logo' => $request->getBodyParam('logo'),
+			'brandBgColor' => $request->getBodyParam('brandBgColor'),
+			'brandTextColor' => $request->getBodyParam('brandTextColor'),
+			'accentBgColor' => $request->getBodyParam('accentBgColor'),
+			'accentTextColor' => $request->getBodyParam('accentTextColor'),
+			'displayStyleGuide' => $request->getBodyParam(
+				'displayStyleGuide',
+				false,
+			),
+			'displayCmsGuide' => $request->getBodyParam(
+				'displayCmsGuide',
+				false,
+			),
 		];
 
-		if ($savedSettings == null) {
-			$savedSettings = [];
-		}
+		// Preserve every existing setting, including structureUid.
+		$settings = $pluginSettings->toArray();
+		$settings['sites'] = $sites;
 
-		$settings = [
-			"sites" => array_merge($currentSettings, $savedSettings),
-		];
-
-		if (
-			!Craft::$app->getPlugins()->savePluginSettings($plugin, $settings)
-		) {
-			Craft::$app
-				->getSession()
-				->setError(Craft::t("app", "Couldn't save plugin settings."));
+		if (!Craft::$app->getPlugins()->savePluginSettings($plugin, $settings)) {
+			Craft::$app->getSession()->setError(
+				Craft::t('app', 'Couldn’t save plugin settings.'),
+			);
 
 			return $this->redirectToPostedUrl();
 		}
+
+		Craft::$app->getSession()->setNotice(
+			Craft::t('app', 'Plugin settings saved.'),
+		);
+
+		return $this->redirectToPostedUrl();
 	}
 
 	// Protected Methods

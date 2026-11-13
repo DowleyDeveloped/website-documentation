@@ -11,6 +11,8 @@ use craft\models\EntryType;
 use craft\models\FieldLayout;
 use craft\models\FieldLayoutTab;
 
+use Exception;
+
 class CreateEntryType extends Component
 {
 	public static function create()
@@ -21,10 +23,11 @@ class CreateEntryType extends Component
         // Entry Type exists?
         $entryType = $sectionsService->getEntryTypeByHandle("websiteDocumentationContent");
 
-        if (!$entryType)
-        {
-            $entryType = new EntryType();
-        }
+        if ($entryType) {
+			return;
+		}
+
+		$entryType = new EntryType();
 
         // Set the simple stuff
         $entryType->name = "Website Documentation Content";

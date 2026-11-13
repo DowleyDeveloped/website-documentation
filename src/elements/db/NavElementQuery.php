@@ -34,6 +34,7 @@ class NavElementQuery extends ElementQuery
         if (!isset($this->withStructure)) {
             $this->withStructure = true;
         }
+
         parent::init();
     }
 
@@ -160,16 +161,12 @@ class NavElementQuery extends ElementQuery
         if ($this->menuId) {
             $this->subQuery->andWhere(Db::parseParam('documentation_navigation_elements.menuId', $this->menuId));
         }
-
-		// Site ID
-		if ($this->siteId) {
-			$parentNav = (new Query())
-				->select(['dn.id'])
-				->from(['dn' => '{{%documentation_navigations}}'])
-				->where(Db::parseParam('dn.siteId', $this->siteId))
-				->scalar();
-
-            $this->subQuery->andWhere(Db::parseParam('documentation_navigation_elements.menuId', $parentNav));
+        
+        // Restrict menus only when specific sites were requested.
+        if ($this->siteId && $this->siteId !== '*') {
+            $this->subQuery->andWhere(
+                Db::parseParam('documentation_navigations.siteId', $this->siteId)
+            );
         }
 
         if ($this->type) {

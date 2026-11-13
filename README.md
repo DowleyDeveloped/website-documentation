@@ -44,4 +44,4 @@ You can create the style guide menu within the Documentation menu section. This 
 
 The naming of these items are used in kebab case for the file in the sections folder. For example if you call a section **Featured Hero** you'll name your file **featured-hero.twig**.
 
-Brought to you by [Dowley Developed](https://charlottedowley.co.uk)
+Brought to you by [Dowley Two](https://charlottedowley.co.uk)

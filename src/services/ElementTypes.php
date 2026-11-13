@@ -4,6 +4,7 @@ namespace dowleydeveloped\websitedocumentation\services;
 use dowleydeveloped\websitedocumentation\base\ElementTypeUi;
 use dowleydeveloped\websitedocumentation\events\RegisterElementTypeEvent;
 use dowleydeveloped\websitedocumentation\elementtypes\StyleGuideType;
+use dowleydeveloped\websitedocumentation\elementtypes\MatrixType;
 use dowleydeveloped\websitedocumentation\elementtypes\CustomUrl;
 use dowleydeveloped\websitedocumentation\elements\NavElement;
 
@@ -37,6 +38,7 @@ class ElementTypes extends Component
     {
         $nodeTypes = [
             StyleGuideType::class,
+			MatrixType::class,
         ];
 
         $event = new RegisterElementTypeEvent([
